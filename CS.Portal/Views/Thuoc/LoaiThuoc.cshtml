@@ -1,0 +1,18 @@
+﻿@using Core_MVC.Models
+@using CS.Portal.Common;
+@model IEnumerable<Core_MVC.Models.QC_LoaiThuoc>
+
+
+<div class="block-sidebar-left block-dmthuoc">
+    <h3 class="heading">Danh mục sản phẩm</h3>
+    <ul class="block-body">
+        @if (Model != null && Model.Count() > 0)
+        {
+            <li><i class="fa fa-angle-right" aria-hidden="true"></i><a href="@Url.Content("~/thuoc/tat-ca-thuoc")">Tất cả thuốc</a></li>
+            foreach (var item in Model)
+            {
+                <li><i class="fa fa-angle-right" aria-hidden="true"></i><a href="@Url.Content("~/thuoc/" + Utilities.RemoveUrlMarks(item.ten)+"-"+item.id)">@item.ten <span>(@item.QC_Thuoc.Where(x => x.id != 0).Count())</span></a></li>
+            }
+        }
+    </ul>
+</div>

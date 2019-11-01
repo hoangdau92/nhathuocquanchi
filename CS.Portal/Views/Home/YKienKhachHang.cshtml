@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Core_MVC.Models.QC_YKienKhachHang>
+
+@if (Model != null && Model.Count() > 0)
+{
+    <div id="qc-ykienkh" class="carousel slide" data-ride="carousel" data-interval="3500">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            @{ int i = 0;}
+            @foreach (var item in Model)
+            {
+                if (i == 0)
+                {
+                    <li data-target="#qc-ykienkh" data-slide-to="0" class="active"></li>
+                }
+                else
+                {
+                    <li data-target="#qc-ykienkh" data-slide-to="@i"></li>
+                }
+                i++;
+            }
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            @{ i = 0;}
+            @foreach (var item in Model)
+            {
+                i++;
+                if (i == 1)
+                {
+                    <div class="item active">
+                        <div class="col-xs-3 img-avatar">
+                            <img src="@Url.Content(item.anhdaidien)" alt="anh dai dien">
+                        </div>
+                        <div class="col-xs-9 entry-text">
+                            <p class="noidung">@item.noidung</p>
+                        </div>
+                        <div class="title">@item.tenkhachhang - @item.thongtinthem</div>
+                    </div>
+                }
+                else
+                {
+                    <div class="item">
+                        <div class="col-xs-3 img-avatar">
+                            <img src="@Url.Content(item.anhdaidien)" alt="anh dai dien">
+                        </div>
+                        <div class="col-xs-9 entry-text">
+                            <p class="noidung">@item.noidung</p>
+                        </div>
+                        <div class="title">@item.tenkhachhang - @item.thongtinthem</div>
+                    </div>
+                }
+            }
+
+
+        </div>
+    </div>
+
+}

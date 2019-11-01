@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="csrf-token" content="ju0AJjtVlV2LnL9lhkK9fOpg7DhuaMFVgR1mifUv">
+    <link rel="shortcut icon" href="@Url.Content("~/favicon.ico")" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Trang quản trị hệ thống </title>
+    <!-- Bootstrap Core CSS -->
+    <link href="@Url.Content("~/Content/CSSBase/PagedList.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/CSSBase/bootstrap.min.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/CSSBase/fontawesome-all.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/CSSBase/font-awesome.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/CSSBase/jsTree/style.min.css")" rel="stylesheet" />@*jstree*@
+    <!-- MetisMenu CSS -->
+    <link href="@Url.Content("~/Content/CSSBase/metisMenu.min.css")" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="@Url.Content("~/Content/CSSBase/sb-admin-2.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/CS01/StyleAdmin.css")" rel="stylesheet" />
+    <!-- Alert CSS -->
+    <link href="@Url.Content("~/Content/CSSBase/jquery-confirm.min.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/CSSBase/bootstrap-select.css")" rel="stylesheet">
+    <link rel="stylesheet" href="@Url.Content("~/Content/CSSBase/bootstrap-datetimepicker.css")" />
+    <link href="@Url.Content("~/Content/Admin/css/admin_style.css")" rel="stylesheet" />
+    <!-- Custom Fonts -->
+</head>
+<body>
+    <div id="wrapper">
+        @RenderPage("_Navigation.cshtml")
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h4>@RenderSection("header", required: false)</h4>
+                    </div>
+                </div>
+                @if (TempData["AlertMessage"] != null)
+                {
+                    <div id="AlertBox" class="alert @TempData["AlertType"] hide">
+                        @TempData["AlertMessage"]
+                    </div>
+                }
+                <div id="AlertBoxJS" style="display: none">
+                </div>
+
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+
+    <!-- jQuery -->
+    <script src="@Url.Content("~/Scripts/JSBase/jquery.min.js")"></script>
+    <!--Validate-->
+    <script src="@Url.Content("~/Scripts/JSBase/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/JSBase/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <!--Confirm-->
+    <script src="@Url.Content("~/Scripts/JSBase/jquery.unobtrusive-ajax.min.js")"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="@Url.Content("~/Scripts/JSBase/bootstrap.min.js")"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="@Url.Content("~/Scripts/JSBase/metisMenu.min.js")"></script>
+    @*<script src="/assets/admin/js/plugins/ckfinder/ckfinder.js"></script>
+        <script src="/assets/admin/js/plugins/ckeditor/ckeditor.js"></script>*@
+    <script src="@Url.Content("~/Scripts/JSBase/bootstrap-select.js")"></script>
+    <script src="@Url.Content("~/Scripts/JSBase/jstree.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/JSBase/moment.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/JSBase/bootstrap-datetimepicker.js")" type="text/javascript"></script>
+    <!-- Alert JavaScript -->
+    <script src="@Url.Content("~/Scripts/JSBase/jquery-confirm.min.js")"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="@Url.Content("~/Scripts/JSBase/sb-admin-2.js")"></script>
+    <script src="@Url.Content("~/Scripts/JSBase/Web.config.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/JSBase/common.js")" type="text/javascript"></script>
+    <!--CKFinder-->
+    <script src="@Url.Content("~/ckfinder/ckfinder.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        function BrowseServer() {
+            // You can use the "CKFinder" class to render CKFinder in a page:
+            var finder = new CKFinder();
+            finder.basePath = '~/ckfinder';	// The path for the installation of CKFinder (default = "/ckfinder/").
+            finder.selectActionFunction = SetFileField;
+            finder.popup();
+        }
+        // This is a sample function which is called when a file is selected in CKFinder.
+        function SetFileField(fileUrl) {
+            document.getElementById('xFilePath').value = fileUrl;
+        }
+    </script>
+
+    @RenderSection("jsFooter", required: false)
+</body>
+</html>

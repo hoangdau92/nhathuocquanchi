@@ -1,0 +1,42 @@
+.main-footer {
+	.footer {
+    	padding: 15px;
+		background: #fff;
+		border: 1px dashed $primary-color;
+		border-top: 3px solid $primary-color;
+		.footer-image {
+			img {
+				max-height: 50px;
+			}
+		}
+		.footer-content {
+			border-top: 3px solid $primary-color;
+			background: #fff;
+			padding-top: 15px;
+			padding-bottom: 15px;
+		}
+		.footer-description, .footer-contact {
+			p {
+				margin-bottom: 3px;
+				color: #000;
+			}
+			font-size: 12px;
+			.text1 {
+				font-weight: bold;
+				color: #000;
+				span {
+					color: #0288eb;
+				}
+			}
+			.text2, .text3 {
+				color: #616161;
+				span {
+					font-weight: bold;
+				}
+			}
+			.text4 {
+				font-style: italic;
+			}
+		}
+	}
+}

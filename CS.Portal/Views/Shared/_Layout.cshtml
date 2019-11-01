@@ -1,0 +1,135 @@
+﻿<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+@using System.Web.Security
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Core MVC</title>
+    <link rel="shortcut icon" href="@Url.Content("~/Images/Icons/favicon.ico")" type="image/x-icon">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="@Url.Content("~/Content/CSSBase/jquery-ui.css")" rel="stylesheet" />
+    <!-- Latest compiled and minified JavaScript -->
+    <link href="@Url.Content("~/Content/CSSBase/bootstrap.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/CSSBase/font-awesome.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/CSSBase/fontawesome-all.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/CSSBase/bootstrap-select.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/CSSBase/jsTree/style.min.css")" rel="stylesheet" />@*jstree*@
+    <link href="@Url.Content("~/Content/CS01/Style.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/CS01/main.css")" rel="stylesheet" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/CSSBase/bootstrap-datetimepicker.css")" />
+
+</head>
+<body>
+    <header id="header">
+        <div class="container">
+            <div class="col-lg-12">
+                <div class="row header-social">
+                    <div class="col-lg-12 text-right">
+                        <span><a href="@Url.Content("~/")">RSS <i class="fas fa-rss"></i></a></span>
+                        <span><a href="@Url.Content("~/")">Sơ đồ trang <i class="glyphicon glyphicon-equalizer"></i></a></span>
+                        @if (Context.User.Identity.IsAuthenticated)
+                        {
+                            <span><a href="@Url.Content("~/admin/qt_home")" target="_blank">Trang quản trị <i class="fas fa-angle-double-right"></i></a></span>
+                            <span><a href="@Url.Content("~/cs/Home/Logout")">Đăng xuất <i class="fas fa-sign-out-alt"></i></a></span>
+                        }
+                        else
+                        {
+                            <span><a href="@Url.Content("~/dang-nhap")">Đăng nhập <i class="fas fa-sign-in-alt"></i></a></span>
+                            @*<a href="@Url.Content("~/dang-nhap")" class="btn btn-success btn-xs">Đăng nhập</a>*@
+                        }
+                    </div>
+                </div>
+                <div class="row header hidden-xs">
+                    <a href="@Url.Content("~")">
+                        <img src="@Url.Content("~/images/banner/banner.jpg")" alt="Vu Khoa Hoc Cong Nghe" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                @{Html.RenderAction("MainMenu", "System");}
+            </div>
+        </div>
+    </div>
+    <div class="container content">
+        <div class="row">
+            <div class="col-lg-12">
+                <h4>@RenderSection("header", required: false)</h4>
+            </div>
+        </div>
+        <div class="row">
+            @if (TempData["AlertMessage"] != null)
+            {
+                <div id="AlertBox" class="alert @TempData["AlertType"] hide">
+                    @TempData["AlertMessage"]
+                </div>
+            }
+        </div>
+        @RenderBody()
+    </div>
+    <footer class="main-footer" id="footer">
+        <div class="container">
+            <div class="col-xs-12 footer">
+                <div class="hidden-xs hidden-sm col-md-1 footer-image">
+                    <img src="@Url.Content("~/Images/monre1.png")" alt="banner" />
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-5 footer-description">
+                    <p class="text1">CƠ QUAN CHỦ QUẢN: <span>BỘ TÀI NGUYÊN VÀ MÔI TRƯỜNG</span></p>
+                    <p class="text3">Chịu trách nhiệm chính: Vụ Khoa học và Công nghệ</p>
+                    <p class="text4">Ghi rõ nguồn khi phát hành lại thông tin từ Cổng Thông tin điện tử này</p>
+                </div>
+                <div class="hidden-xs hidden-sm col-md-1">
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-5 footer-contact">
+                    <p class="text2">Liên hệ: <span>Số 10 Tôn Thất Thuyết - Hà Nội</span></p>
+                    <p class="text2">Điện thoại: <span>(0243) 7956868</span> - Fax: <span>(043) 8359221</span></p>
+                    <p class="text2">Email: <span>vkhcn@monre.gov.vn</span></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+    <!-- jQuery -->
+    <script src="@Url.Content("~/Scripts/JSBase/jquery.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/JSBase/jquery-ui.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $.noConflict();
+    </script>
+    <!--Validate-->
+    <script src="@Url.Content("~/Scripts/JSBase/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/JSBase/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <!--Confirm-->
+    <script src="@Url.Content("~/Scripts/JSBase/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="@Url.Content("~/Scripts/JSBase/moment.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/JSBase/bootstrap.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/JSBase/bootstrap-datetimepicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/JSBase/jstree.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/ckfinder/ckfinder.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/JSBase/bootstrap-select.js")"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="@Url.Content("~/Scripts/JSBase/Web.config.js")" type="text/javascript"></script>
+
+    @*<script src="/assets/admin/dist/js/sb-admin-2.js"></script>*@
+    @RenderSection("jsFooter", required: false)
+    <script type="text/javascript">
+        jQuery(function () {
+            jQuery('#AlertBox').removeClass('hide');
+            jQuery('#AlertBox').delay(2000).slideUp(500);
+        });
+    </script>
+</body>
+</html>

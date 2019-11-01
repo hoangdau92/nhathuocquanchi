@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "Phản hồi";
+    Layout = "~/Views/Shared/_Layout_quanchi.cshtml";
+}
+
+@model IList<Core_MVC.Models.QC_Gopy_KhieuNai>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Xem góp ý - khiếu nại của khách hàng
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Họ và tên</th>
+                                    <th>Nội dung góp ý</th>
+                                    <th>Nội dung khiếu nại</th>
+                                    <th>Ngày gửi</th>
+                                    <th>Nội dung phản hồi</th>
+                                    <th>Ngày phàn hồi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Count() > 0)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <tr id="row_@item.id">
+                                            <td>@item.QC_KhachHang.tendaydu</td>
+                                            <td>@item.noidunggopy</td>
+                                            <td>@item.noidungkhieunai</td>
+                                            <td align="center">@item.ngaygopy.Value.ToString("dd-MM-yyy")</td>
+                                            <td>@item.noidungphanhoi</td>
+                                            @if (item.ngayphanhoi != null)
+                                            {
+                                                <td align="center">@item.ngayphanhoi.Value.ToString("dd-MM-yyy")</td>
+                                            }
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section jsFooter{
+    <script src="@Url.Content("~/areas/admin/jscontroller/JF_Common.js")"></script>
+}
+

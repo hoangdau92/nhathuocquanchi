@@ -1,0 +1,64 @@
+﻿@using Core_MVC.Helpers
+@model IEnumerable<Core_MVC.Models.QC_DoiTacTieuBieu>
+
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="carousel slide" data-ride="carousel" data-type="multi" data-interval="5000" id="c-dttb">
+        <div class="carousel-inner">
+            @{ int i = 0;}
+            @foreach (var item in Model)
+            {
+                i++;
+                if (i == 1)
+                {
+                    <div class="item active">
+                        <div class="col-md-2 col-sm-4 col-xs-6">
+                            <img src="@Url.Content(item.anhdaidien)" class="img-responsive" alt="@item.ten">
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="item">
+                        <div class="col-md-2 col-sm-4 col-xs-6">
+                            <img src="@Url.Content(item.anhdaidien)" class="img-responsive" alt="@item.ten">
+                        </div>
+                    </div>
+                }
+
+            }
+        </div>
+    </div>
+                }
+
+
+
+@Html.Script(
+    @<script type="text/javascript">
+        $(function () {
+            $('.block-dttieubieu .carousel[data-type="multi"] .item').each(function () {
+                let resolutionW = window.screen.availWidth;
+                let quantitySlide = 4;
+                //if (resolutionW <= 375) {
+                //    quantitySlide = 2;
+                //}
+                var next = $(this).next();
+                if (!next.length) {
+                    next = $(this).siblings(':first');
+                }
+                next.children(':first-child').clone().appendTo($(this));
+
+                for (var i = 0; i < quantitySlide; i++) {
+                    next = next.next();
+                    if (!next.length) {
+                        next = $(this).siblings(':first');
+                    }
+
+                    next.children(':first-child').clone().appendTo($(this));
+                }
+            });
+
+
+        });
+    </script>
+)

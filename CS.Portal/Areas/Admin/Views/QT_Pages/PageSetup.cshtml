@@ -1,0 +1,180 @@
+﻿@{
+    ViewBag.Title = "PageSetup";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+@section header{
+    Trình bày trang
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Trang: <b>@ViewBag.PAGE</b>
+                <input type="hidden" id="pageid" value="@ViewBag.ID" />
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" id="test">
+                    <div class="form-group">
+                        <div class="col-lg-2">
+                            <label class="control-label">Tiêu đề</label>
+                        </div>
+                        <div class="col-lg-4">
+                            <input type="text" class="form-control" id="Title" required />
+                            <input type="hidden" value="0" id="ID" />
+                        </div>
+                        <div class="col-lg-2">
+                            <label class="control-label">Hàng</label>
+                        </div>
+                        <div class="col-lg-4">
+                            <input type="number" class="form-control" id="Row" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-2">
+                            <label class="control-label">Module</label>
+                        </div>
+                        <div class="col-lg-4">
+                            <select class="form-control" id="ModuleID" onchange="getPartials()" required></select>
+                        </div>
+                        <div class="col-lg-2">
+                            <label class="control-label">Partial</label>
+                        </div>
+                        <div class="col-lg-4">
+                            <select class="form-control" id="PartialID" required>
+                                <option value="">--  Chọn partial  --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-2">
+                            <label class="control-label">Vị trí</label>
+                        </div>
+                        <div class="col-lg-4">
+                            <select class="selectpicker form-control" multiple id="Position" data-live-search="true" required>
+                                <optgroup label="Desktop" data-max-options="1">
+                                    <option>col-lg-1</option>
+                                    <option>col-lg-2</option>
+                                    <option>col-lg-3</option>
+                                    <option>col-lg-4</option>
+                                    <option>col-lg-5</option>
+                                    <option>col-lg-6</option>
+                                    <option>col-lg-7</option>
+                                    <option>col-lg-8</option>
+                                    <option>col-lg-9</option>
+                                    <option>col-lg-10</option>
+                                    <option>col-lg-11</option>
+                                    <option>col-lg-12</option>
+                                </optgroup>
+                                <optgroup label="Tablet" data-max-options="1">
+                                    <option>col-md-1</option>
+                                    <option>col-md-2</option>
+                                    <option>col-md-3</option>
+                                    <option>col-md-4</option>
+                                    <option>col-md-5</option>
+                                    <option>col-md-6</option>
+                                    <option>col-md-7</option>
+                                    <option>col-md-8</option>
+                                    <option>col-md-9</option>
+                                    <option>col-md-10</option>
+                                    <option>col-md-11</option>
+                                    <option>col-md-12</option>
+                                </optgroup>
+                                <optgroup label="Mobile" data-max-options="1">
+                                    <option>col-xs-1</option>
+                                    <option>col-xs-2</option>
+                                    <option>col-xs-3</option>
+                                    <option>col-xs-4</option>
+                                    <option>col-xs-5</option>
+                                    <option>col-xs-6</option>
+                                    <option>col-xs-7</option>
+                                    <option>col-xs-8</option>
+                                    <option>col-xs-9</option>
+                                    <option>col-xs-10</option>
+                                    <option>col-xs-11</option>
+                                    <option>col-xs-12</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="col-lg-2">
+                            <label class="control-label">Thứ tự</label>
+                        </div>
+                        <div class="col-lg-2">
+                            <input type="number" class="form-control" id="Order" required />
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" id="IsActive" value="true" checked><b>Active</b>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-2">
+                            <label class="control-label">Vùng bao ngoài:</label>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" id="IsBox" value="false"><b></b>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <label class="control-label">Box cha</label>
+                        </div>
+                        <div class="col-lg-4">
+                            <select class="form-control" id="BoxParent">
+                                <option value="">--  Chọn box  --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-12 text-center">
+                            <button type="button" class="btn btn-default pull-left btn-xs" data-toggle="collapse" data-target="#demo">Copy từ trang khác</button>
+                            <button class="btn btn-primary" type="submit" id="btnSave">Thêm mới</button>
+                            <button class="btn btn-default" type="button" id="btnCancel" onclick="cancel()">Hủy</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div id="demo" class="collapse">
+                            <div class="col-lg-2">
+                                <label class="control-label">Chọn trang</label>
+                            </div>
+                            <div class="col-xs-4">
+                                <select class="form-control" id="sltPage"></select>
+                            </div>
+                            <div class="col-xs-2">
+                                <button class="btn btn-primary" onclick="copypage()" type="button">Copy</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <hr />
+                        </div>
+                    </div>
+                </form>
+                <table class="table table-bordered" id="tbl-pagesetup">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Hàng</th>
+                            <th>Tiêu đề</th>
+                            <th>Partial</th>
+                            <th>C-A</th>
+                            <th>Position</th>
+                            <th>Thứ tự</th>
+                            <th>Active</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@section jsFooter{
+    <script src="@Url.Content("~/areas/admin/jscontroller/QT_Pages_PageSetup.js")"></script>
+}

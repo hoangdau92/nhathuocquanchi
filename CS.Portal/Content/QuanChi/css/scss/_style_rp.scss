@@ -1,0 +1,226 @@
+﻿@include tablet {
+	.header .header-right .phone .phone-numbers {
+		font-size: 1.25em;
+	}
+}
+
+@include ipadpro {
+	.news-listbycate .item .item-info h4 {
+		font-size: 15pt;
+	}
+	.block-ttnoibat ul li .item-title h4 {
+		font-size: 11pt;
+	}
+}
+
+
+@include sm {
+	.header {
+		.header-left {
+			.header-logo img {
+				max-width: 65px;
+			}
+			.site-title .title {
+				font-size: 2.17rem;
+			}
+		}
+		.header-right {
+			.phone {
+			}
+		}
+	}
+	#qc-carousel.carousel .carousel-inner .item img {
+		height: 350px;
+	}
+}
+
+@include xs {
+	.navbar-qc {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		z-index: 99;
+		border-bottom: 3px solid $secondary-color;
+		.navbar-header {
+			padding-left: 15px;
+			padding-right: 15px;
+			.navbar-brand {
+				color: #fff;
+				font-family: 'myriad pro', sans-serif;
+				text-transform: uppercase;
+			}
+			.navbar-logo {
+				float: left;
+				padding-top: 5px;
+				img {
+					width: 35px;
+				}
+			}
+			.navbar-toggle {
+				border-color: #fff;
+				margin-right: 0;
+				.icon-bar {
+					background-color: #fff;
+				}
+			}
+		}
+		.navbar-nav {
+			margin: 0;
+			margin-top: 10px;
+			margin-bottom: 10px;
+			li {
+				border-bottom: 1px solid $secondary-color;
+				font-size: 12pt;
+				&:last-child {
+					border-bottom: none;
+				}
+				a {
+					padding-top: 10px;
+					padding-bottom: 10px;
+				}
+				.dropdown-menu li {
+					text-transform: none;
+				}
+			}
+		}
+	}
+
+	.block-hotline {
+		border-bottom: 1px solid #bfbfbf;
+		padding-bottom: 5px;
+		.phone-numbers {
+			vertical-align: middle;
+			margin-top: 10px;
+			font-size: 1.65em;
+			display: inline-block;
+			font-family: 'Open Sans', sans-serif;
+			color: $primary-color;
+			li {
+				display: inline-block;
+				font-weight: bold;
+				font-size: 16px;
+				border-right: 1px solid #ccc;
+				text-align: left;
+				padding-right: 10px;
+				padding-left: 10px;
+				&:last-child {
+					border-right: none;
+					padding-right: 0;
+				}
+				.phone-title {
+					font-weight: normal;
+					font-size: 14px;
+				}
+			}
+		}
+	}
+
+	.qc-login-xs {
+		margin-top: 60px;
+		text-align: right;
+		.btn-qc {
+			padding: 3px 6px;
+			font-size: 10px;
+		}
+		.hi-user {
+			font-size: 11pt;
+		}
+		.btn-transparent {
+			background-color: transparent;
+			color: $primary-color;
+		}
+	}
+
+	#qc-carousel.carousel {
+		.carousel-caption {
+			h3 {
+				font-size: 18px;
+			}
+			p {
+				font-size: 13px;
+			}
+		}
+		.carousel-inner .item img {
+			height: 180px;
+		}
+	}
+
+	.block-ykienkh .block-title {
+		font-size: 25px;
+	}
+	
+	.block-dttieubieu .block-title {
+		font-size: 25px;
+	}
+
+	.slide-xs {
+		padding: 0;
+	}
+
+	.block-product {
+		.block-content .block-filter {
+			text-align: left;
+		}
+		.list-product .item {
+			width: 49%;
+			.item-button {
+				display: block;
+				width: unset;
+				left: unset;
+				right: 5px;
+				bottom: 0;
+				background-color: transparent;
+				.seemore {
+					display: none;
+				}
+			}
+		}
+	}
+
+	.block-sanphamcungloai .list-product {
+		.product {
+			width: 48%;
+		}
+	}
+
+	.news-listbycate .item .item-info {
+		padding-bottom: 35px;
+		h4 {
+			font-size: 13pt;
+		}
+	}
+
+	.qc-cart {
+		top: 15px;
+		right: 70px;
+		z-index: 100;
+		a {
+			padding: 0;
+			background-color: transparent;
+			font-size: 15pt;
+		}
+		span {
+			top: -10px;
+			right: -6px;
+			font-family: unset;
+			font-weight: normal;
+			font-size: 14px;
+		}
+	}
+	
+	.table-donhang-xs {
+		overflow: auto;
+		.th-donvi {
+			min-width: 80px;
+		}
+	}
+
+}
+
+
+@include ipad {
+	#qc-carousel.carousel .carousel-inner .item img {
+		height: 280px;
+	}
+}

@@ -1,0 +1,201 @@
+﻿@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+
+@using Core_MVC.Models
+@model QC_MaGiamGia
+@using Core_MVC.Common
+
+@section header{
+    Sửa mã giảm giá
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Nhập thông tin
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("Edit", "QC_MaGiamGia", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <input type="hidden" value="@ViewBag.DOITUONG" id="lDoiTuong" />
+                    <input type="hidden" value="@Model.id" id="id" />
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div class="form-group">
+                                <div class="control-group row">
+                                    <div class="col-lg-3">
+                                        @Html.LabelFor(model => model.tenma, htmlAttributes: new { @class = "control-label" })
+                                    </div>
+                                    <div class="col-lg-9">
+                                        @Html.TextBoxFor(model => model.tenma, new { @class = "form-control", @disabled = "disabled" })
+                                        @Html.ValidationMessageFor(model => model.tenma, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="control-group row">
+                                    <div class="col-lg-3">
+                                        @Html.LabelFor(model => model.idloaigiamgia, htmlAttributes: new { @class = "control-label" })
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <select id="@Html.IdFor(model => model.idloaigiamgia)" name="@Html.IdFor(model => model.idloaigiamgia)" class="form-control" disabled>
+                                            @if (TempData["loaigiamgia"] != null)
+                                            {
+                                                List<QC_LoaiGiamGia> lData = (List<QC_LoaiGiamGia>)TempData["loaigiamgia"];
+                                                for (int i = 0; i < lData.Count; i++)
+                                                {
+                                                    if (lData[i].id == Model.idloaigiamgia)
+                                                    {
+                                                        <option value="@lData[i].id" selected>@lData[i].ten</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@lData[i].id">@lData[i].ten</option>
+                                                    }
+                                                }
+                                            }
+                                        </select>
+                                        @Html.ValidationMessageFor(model => model.idloaigiamgia, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="control-group row">
+                                    <div class="col-lg-3">
+                                        @Html.LabelFor(model => model.giatri, htmlAttributes: new { @class = "control-label" })
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <div class="input-group">
+                                            <input class="form-control text-right" id="giatri" name="giatri" value="@Html.ValueFor(model => model.giatri)" disabled>
+                                            @if (Model.idloaigiamgia == LOAI_GIAMGIA.TIEN)
+                                            {
+                                                <span class="input-group-addon" id="giatri-addon">VNĐ</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="input-group-addon" id="giatri-addon">%</span>
+                                            }
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.giatri, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="control-group row">
+                                    <div class="col-lg-3">
+                                        <label>Thời gian hiệu lực</label>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <div class="row">
+                                            <div class="col-xs-6">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Từ ngày</span>
+                                                    <input class="form-control" id="tungay" name="tungay" autocomplete="off" value="@Convert.ToDateTime(Model.tungay).ToString("dd-MM-yyyy")">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Đến ngày</span>
+                                                    <input class="form-control" id="denngay" name="denngay" autocomplete="off" value="@Convert.ToDateTime(Model.denngay).ToString("dd-MM-yyyy")">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="control-group row">
+                                    <div class="col-lg-3">
+                                        @Html.LabelFor(model => model.idkieudoituong, htmlAttributes: new { @class = "control-label" })
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <select id="@Html.IdFor(model => model.idkieudoituong)" name="@Html.IdFor(model => model.idkieudoituong)" class="form-control" disabled>
+                                            <option value="">Chọn đối tượng</option>
+                                            @if (TempData["kieudoituong"] != null)
+                                            {
+                                                List<QC_KieuDoiTuong> lData = (List<QC_KieuDoiTuong>)TempData["kieudoituong"];
+                                                for (int i = 0; i < lData.Count; i++)
+                                                {
+                                                    if (lData[i].id == Model.idkieudoituong)
+                                                    {
+                                                        <option value="@lData[i].id" selected>@lData[i].ten</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@lData[i].id">@lData[i].ten</option>
+                                                    }
+                                                }
+                                            }
+                                        </select>
+                                        @Html.ValidationMessageFor(model => model.idkieudoituong, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group hidden" id="chondoituong">
+                                <div class="control-group row">
+                                    <div class="col-lg-3">
+                                        <label class="control-label">Chọn đối tượng</label>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <select class="form-control" id="doituong" name="doituong" multiple="multiple" required></select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="control-group row">
+                                    <div class="col-lg-offset-3 col-lg-9">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" name="@Html.IdFor(model => model.kichhoat)" value="@Html.ValueFor(m=>m.kichhoat)" @(Convert.ToBoolean(Model.kichhoat) == true ? "checked" : "") />
+                                                        <b>@Html.DisplayNameFor(model => model.kichhoat)</b>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <input type="submit" value="Lưu" class="btn btn-primary" />
+                                    <a class="btn btn-default" href="@Url.Content("~/Admin/QC_MaGiamGia/Index")">Quay lại</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link href="~/Content/CSSBase/select2.css" rel="stylesheet" />
+@section jsFooter{
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/Scripts/JSBase/select2.js"></script>
+    <script src="@Url.Content("~/Areas/Admin/JSController/QC_MaGiamGia.js")"></script>
+    <script type="text/javascript">
+        jQuery(function () {
+            LayDoiTuong(true);
+        });
+    </script>
+
+}

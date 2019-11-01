@@ -1,0 +1,10 @@
+﻿.avatar {
+    max-width:100%;
+    height: 220px;
+    border: 5px double #0026ff;
+    margin-left: 25px;
+}
+
+.text-info {
+    margin-left: 25px;
+}

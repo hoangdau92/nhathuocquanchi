@@ -1,0 +1,27 @@
+.ftco-footer {
+    background: #fff;
+    .mb-5 {
+    	margin-bottom: 0rem !important;
+    }
+    .ftco-footer-widget {
+    	.ftco-heading-2 {
+	    	font-size: 20px;
+	    	margin-top: 10px;
+	    }
+	    ul {
+	    	li {
+				padding-top: 0 !important;
+				padding-bottom: 10px !important;
+				position: relative;
+				i {
+					position: absolute;
+					top: 5px;
+				}
+				.text {
+					padding-left: 25px;
+					display: block;
+				}
+	    	}
+	    }
+    }
+}

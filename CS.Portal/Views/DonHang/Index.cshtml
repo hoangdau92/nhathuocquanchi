@@ -1,0 +1,169 @@
+﻿@{
+    ViewBag.Title = "Đơn hàng";
+    Layout = "~/Views/Shared/_Layout_quanchi.cshtml";
+}
+@using Core_MVC.Models
+
+<div class="container block-breadcrumb">
+    <div class="breadcrumbs">
+        <span>Home</span>
+        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+        <span>Đơn hàng</span>
+    </div>
+</div>
+<div class="container block-donhang">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="qc-info">
+                <strong><i class="far fa-bookmark luuy"></i> Lưu ý:</strong>
+                <p>1. Thay đổi số lượng phù hợp, sau đó ấn cập nhật để hệ thống ghi nhận.</p>
+                <p>2. Ấn vào dấu <i class="fa fa-times text-danger" aria-hidden="true"></i> để xóa sản phẩm khỏi đơn hàng.</p>
+                <p>3. Nếu có mã giảm giá, hãy nhập vào sau đó ấn <strong>Áp dụng</strong> để xem số tiền được giảm.</p>
+                <input type="hidden" value="0" id="hid-sotiengiam" />
+                <input type="hidden" value="" id="hid-mgg" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 table-donhang-xs">
+            @if (Session["cart"] != null && Context.User.Identity.IsAuthenticated == true)
+            {
+                <p><i class="fa fa-star" aria-hidden="true"></i> Mã đơn hàng: <b id="madonhang">@ViewBag.MADONHANG</b></p>
+            }
+            <table class="table qc-table-donhang">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Sản phẩm</th>
+                        <th>Giá</th>
+                        <th width="10%">Số lượng</th>
+                        <th width="10%" class="th-donvi">Đơn vị</th>
+                        <th>Tổng</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="giohang">
+                    @if (Session["cart"] != null && Context.User.Identity.IsAuthenticated == true)
+                    {
+                        int i = 0;
+                        decimal tong = 0;
+                        List<ShoppingCart> lCart = (List<ShoppingCart>)Session["cart"];
+                        foreach (var item in lCart)
+                        {
+                            i++;
+                            decimal thanhtien = item.giatien * item.soluong;
+                            tong += thanhtien;
+                            <tr>
+                                <td align="left"><img src="@Url.Content(item.anhdaidien)" alt="anh dai dien" /> </td>
+                                <td>@item.tensanpham</td>
+                                <td align="center">@string.Format("{0:N0}", item.giatien)</td>
+                                <td align="center"><input type="number" id="@item.idsanpham" value="@item.soluong" class="form-control ip-quantity" data-current="@item.soluong" /></td>
+                                <td align="center">@item.donvitinh</td>
+                                <td align="center">@string.Format("{0:N0}", thanhtien)</td>
+                                <td align="center"><a href="javascript:void(0)" onclick="QUANCHI_DonHang.RemoveProduct(@item.idsanpham)" title="Xóa khỏi giỏ hàng"><i class="fa fa-times fa-2x text-danger" aria-hidden="true"></i></a></td>
+                            </tr>
+                        }
+                        <tr>
+                            <td></td>
+                            <td align="right"><b class="nowrap">Mã giảm giá:</b></td>
+                            <td align="center" colspan="2">
+                                <input class="form-control ip-magiamgia" type="text" id="qc-magiamgia" />
+                                <span class="text-danger" id="mgg-error"></span>
+                            </td>
+                            <td align="center"><a class="btn-magiamgia" href="javascript:void(0)" onclick="QUANCHI_DonHang.Apply()" title="Áp dụng mã giảm giá">Áp dụng</a></td>
+                            <td align="center"><b class="text-danger" id="tiengiam"></b></td>
+                            <td align="center">
+                                <i class="fa fa-spinner fa-spin fa-2x fa-fw hidden qc-loading"></i>
+                                <span class="sr-only qc-loading hidden">Loading...</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4"></td>
+                            <td><b class="nowrap">Thành tiền:</b></td>
+                            <td align="center">
+                                <b id="thanhtien">@string.Format("{0:N0}", tong)</b>
+                                <input type="hidden" value="@tong" id="tongthanhtien" />
+                            </td>
+                            <td></td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="100%">Bạn chưa <a href="@Url.Content("~/tai-khoan/dangnhap")">đăng nhập</a> hoặc chưa có <a href="@Url.Content("~/thuoc/tat-ca-thuoc")">sản phẩm</a> nào trong giỏ hàng.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <span class="title">Giao hàng tới</span>
+            <input type="text" value="" class="qc-input" placeholder="Nhập địa chỉ giao hàng" id="diachigiaohang" autocomplete="off" />
+        </div>
+    </div>
+    <div class="row" style="margin-top: 15px;">
+        <div class="col-md-6 col-xs-12 block-ghichu">
+            <span class="title">Ghi chú</span>
+            <textarea class="form-control donhang-ghichu" rows="7" placeholder="Những yêu cầu khác của khách hàng. Ví dụ: đóng gói cẩn thận, giao trong giờ hành chính... " id="ghichu"></textarea>
+        </div>
+        <div class="col-md-6 col-xs-12 block-ptthanhtoan">
+            <span class="title">Phương thức thanh toán</span>
+            <div class="qc_payment">
+                <div class="qc_payment_methods">
+                    @if (TempData["ptthanhtoan"] != null)
+                    {
+                        List<QC_PhuongThucThanhToan> lData = (List<QC_PhuongThucThanhToan>)TempData["ptthanhtoan"];
+                        for (int i = 0; i < lData.Count; i++)
+                        {
+                            if (i == 0)
+                            {
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="phuongthucthanhtoan" value="@lData[i].id" checked>
+                                        @lData[i].tieude
+                                    </label>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="phuongthucthanhtoan" value="@lData[i].id">
+                                        @lData[i].tieude
+                                    </label>
+                                </div>
+                            }
+                        }
+                    }
+
+                    <i>
+                        Trường hợp thanh toán bằng chuyển khoản, vui lòng đọc hướng dẫn
+                        <a href="@Url.Content("~/huong-dan/huong-dan-thanh-toan-bang-chuyen-khoan-581")" target="_blank" style="font-weight: bold;">tại đây</a>
+                    </i>
+                </div>
+                <div class="btn-submit">
+                    @if (Session["cart"] != null && Context.User.Identity.IsAuthenticated == true)
+                    {
+                        <button class="btn btn-thanhtoan" onclick="QUANCHI_DonHang.ThanhToan()" id="btnthanhtoan">
+                            <i class="fas fa-cog fa-spin hidden"></i> Thanh toán
+                        </button>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="@Url.Content("~/Content/CSSBase/jquery-confirm.min.css")" rel="stylesheet">
+@section jsFooter{
+    <script src="@Url.Content("~/Scripts/JSBase/jquery-confirm.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/JSController/donhang.js")"></script>
+    <script type="text/javascript">
+        jQuery(function () {
+            QUANCHI_DonHang.OnchangeQuantity();
+        });
+    </script>
+}

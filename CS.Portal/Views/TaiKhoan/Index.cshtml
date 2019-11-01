@@ -1,0 +1,345 @@
+﻿@{
+    @model Core_MVC.Models.QC_KhachHang
+    ViewBag.Title = "Tài khoản";
+    Layout = "~/Views/Shared/_Layout_quanchi.cshtml";
+}
+
+<link href="~/Content/QuanChi/css/SuaThongTin/suathongtin.css" rel="stylesheet" />
+
+<div class="container block-breadcrumb">
+    <div class="breadcrumbs">
+        <span>Home</span><i class="fa fa-angle-double-right" aria-hidden="true"></i><span>Tài khoản</span>
+    </div>
+</div>
+
+<div class="container block-khdangnhap">
+    <div class="row">
+        <div class=" col-md-3">
+            <div class="sidebar-profile">
+                <div class="thongtin">
+                    <h4>Thông tin chung</h4>
+                </div>
+                <ul class="nav nav-pills nav-stacked side-menu">
+                    <li> <img class="img_avatar" src="@Url.Content(ViewBag.DUONGDANANH + Model.anhdaidien)" alt="anh dai dien" /></li>
+                    <li class="active"><a data-toggle="tab" href="#thongtintaikhoan">Thông tin tài khoản</a></li>
+                    <li><a data-toggle="tab" onclick="QUANCHI_TaiKhoan.LayLichSuDonHang()" href="#thongtindonhang">Lịch sử đơn hàng</a></li>
+                    <li><a data-toggle="tab" href="#thaydoithongtintaikhoan">Thay đổi thông tin tài khoản</a></li>
+                    <li><a data-toggle="tab" href="#gopykhieunai">Góp ý - Khiếu nại</a></li>
+                    <li id="li_danhsachphanhoi"><a data-toggle="tab" onclick="QUANCHI_TaiKhoan.XemNoiDungPhanHoi()" href="#danhsachphanhoi">Danh sách nội dung phản hồi</a></li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="tab-content">
+                <div id="thongtintaikhoan" class="tab-pane fade in active">
+                    <div class="thongtin">
+                        <h4>Thông tin tài khoản</h4>
+                    </div>
+                    <table class="table table-keyval">
+                        <tr>
+                            <th>Họ và tên:</th>
+                            <td>@Model.tendaydu</td>
+                        </tr>
+                        <tr>
+                            <th>Tên đăng nhập:</th>
+                            <td>@Model.tendangnhap</td>
+                        </tr>
+                        <tr>
+                            <th>Nhóm khách hàng:</th>
+                            <td>@ViewBag.NHOM</td>
+                        </tr>
+                        <tr>
+                            <th>Số điện thoại:</th>
+                            <td>@Model.dienthoai</td>
+                        </tr>
+                        <tr>
+                            <th>Địa chỉ:</th>
+                            <td>@Model.diachi</td>
+                        </tr>
+                        <tr>
+                            <th>Ngày đăng ký:</th>
+                            <td>@Model.ngaydangky.Value.ToString("dd-MM-yyyy")</td>
+                        </tr>
+                        <tr>
+                            <th>Điểm tích lũy:</th>
+                            <td>@Model.diemtichluy</td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="thongtindonhang" class="tab-pane fade">
+                    <div class="thongtin">
+                        <h4>Lịch sử đơn hàng</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Mã đơn hàng</th>
+                                        <th>Ngày đặt hàng</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Địa chỉ nhận hàng</th>
+                                        <th>Trạng thái</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-donhang">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div id="thaydoithongtintaikhoan" class="tab-pane">
+                    <div class="thongtin">
+                        <h4>Thay đổi thông tin tài khoản</h4>
+                    </div>
+                    @if (TempData["AlertMessage"] != null)
+                    {
+                        <div id="AlertBox" class="alert @TempData["AlertType"] hide">
+                            @TempData["AlertMessage"]
+                        </div>
+                    }
+                    <div class="row text-info">
+                        @using (Html.BeginForm("SuaThongTin", "taikhoan", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <form method="POST" enctype="multipart/form-data" name="myForm">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-lg-12 text-info">
+                                                    <div class="form-group">
+                                                        <div class="control-group row">
+                                                            <div class="col-lg-3">
+                                                                @Html.LabelFor(model => model.tendaydu, htmlAttributes: new { @class = "control-label" })
+                                                            </div>
+                                                            <div class="col-lg-9">
+                                                                @Html.TextBoxFor(model => model.tendaydu, new { @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.tendaydu, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="control-group row">
+                                                            <div class="col-lg-3">
+                                                                @Html.LabelFor(model => model.matkhau, htmlAttributes: new { @class = "control-label" })
+                                                            </div>
+                                                            <div class="col-lg-9">
+                                                                @Html.PasswordFor(model => model.matkhau, new { @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.matkhau, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="control-group row">
+                                                            <div class="col-lg-3">
+                                                                <label>Nhập lại mật khẩu</label>
+                                                            </div>
+                                                            <div class="col-lg-9">
+                                                                <input type="password" class="form-control" name="matkhau" data-validation-match-match="matkhau" data-validation-match-message="Mật khẩu không trùng khớp!" />
+                                                                <p class="help-block text-danger"></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="control-group row">
+                                                            <div class="col-lg-3">
+                                                                @Html.LabelFor(model => model.diachi, htmlAttributes: new { @class = "control-label" })
+                                                            </div>
+                                                            <div class="col-lg-9">
+                                                                @Html.TextBoxFor(model => model.diachi, new { @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.diachi, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="control-group row">
+                                                            <div class="col-lg-3">
+                                                                @Html.LabelFor(model => model.dienthoai, htmlAttributes: new { @class = "control-label" })
+                                                            </div>
+                                                            <div class="col-lg-9">
+                                                                @Html.TextBoxFor(model => model.dienthoai, new { @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.dienthoai, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <div class="col-md-offset-3 col-md-9">
+                                                            <input type="submit" value="Cập nhật" class="btn btn-primary" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-md-offset-1">
+                                        <img class="img_avatar" src="@Url.Content(ViewBag.DUONGDANANH + Model.anhdaidien)" alt="anh dai dien" />
+                                        <input type="file" name="avatar_file" id="avatar_file" class="form-control" />
+                                    </div>
+                                </div>
+                            </form>
+                        }
+                    </div>
+                </div>
+                <div id="gopykhieunai" class="tab-pane">
+                    <div class="thongtin">
+                        <h4>Góp ý - Khiếu nại</h4>
+                    </div>
+                    <h4>
+                        <strong>Gửi Khiếu nại Dịch vụ tới @HttpContext.Current.Application["tenwebsite"]</strong>
+                    </h4>
+                    <p>
+                        @HttpContext.Current.Application["tenwebsite"] cam kết giải quyết khiếu nại của bạn trong vòng 48h.
+                        Rất xin lỗi nếu trong quá trình phục vụ, những sai sót của chúng tôi ảnh hưởng đến thời gian của bạn
+                    </p>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <textarea rows="4" cols="110" id="khieunai" class="form-control" placeholder="Chia sẻ khiếu nại của bạn với chúng tôi tại đây..."></textarea>
+                            <input id="idgopy_phanhoi" type="hidden" value="0" class="form-control" />
+                        </div>
+                    </div>
+                    <div>
+                    </div>
+                    <h4>
+                        <strong>Giúp @HttpContext.Current.Application["tenwebsite"] phục vụ bạn tốt hơn ? </strong>
+                    </h4>
+                    <p>
+                        @HttpContext.Current.Application["tenwebsite"] vẫn luôn nỗ lực từng ngày để nâng cao chất lượng dịch vụ, giúp khách hàng đặt hàng, nhận hàng nhanh chóng và dễ dàng hơn.
+                        Chúng tôi mong nhận được sự góp ý của bạn để chúng ta cùng xây dựng một cộng đồng kinh doanh Dược phẩm lớn mạnh và phát triển bền vững trong tương lai.
+                    </p>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <textarea rows="4" cols="110" id="gopy" class="form-control" placeholder="Chia sẻ góp ý của bạn với chúng tôi tại đây..."></textarea>
+                        </div>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;
+                    <div class="notification_success" id="thongbao"></div>
+                    <div class="notification_warning" id="thongbao_loi"></div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <div>
+                                    <button class="btn btn-success" id="btnluu" onclick="QUANCHI_TaiKhoan.ThemMoiGopYPhanHoi()">Gửi phản hồi</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="danhsachphanhoi" class="tab-pane">
+                    <div class="thongtin">
+                        <h4>Danh sách nội dung phản hồi</h4>
+                    </div>
+                    <div class="row phanhoi">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Nội dung góp ý</th>
+                                    <th>Nội dung khiếu nại</th>
+                                    <th>Ngày gửi</th>
+                                    <th>Quản trị viên phản hồi</th>
+                                    <th>Ngày phản hồi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table_phanhoi">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="qcModal_ChiTietDonHang" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Chi tiết đơn hàng</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <p><span>Thông tin đơn hàng</span>:<span id="madonhang"></span></p>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Ngày đặt hàng:</label>
+                                <span id="ngaydathang"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Phương thức thanh toán:</label>
+                                <span id="phuongthuc_thanhtoan"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-8">
+                        <label><span>Thông tin đơn hàng</span></label>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="pull-right">
+                            @if (ViewBag.TRANGTHAI == true)
+                            {
+                                @Html.Raw("<i class='fa fa-check text-success' aria-hidden='true'></i> Đơn hàng đã được xử lý")
+                            }
+                            else
+                            {
+                                @Html.Raw("<i class='fa fa-times text-danger' aria-hidden='true'></i> Đơn hàng chưa xử lý")
+                            }
+                        </span>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Loại sản phẩm</th>
+                                            <th>Đơn vị</th>
+                                            <th>Số lượng</th>
+                                            <th>Đơn giá</th>
+                                            <th>Thành tiền</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="thontindonhang">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+@section jsFooter{
+    <script src="@Url.Content("~/Scripts/JSBase/jqBootstrapValidation.js")"></script>
+    <script>jQuery(function () { jQuery("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); });</script>
+    <script src="@Url.Content("~/Scripts/JSController/taikhoan.js")"></script>
+}

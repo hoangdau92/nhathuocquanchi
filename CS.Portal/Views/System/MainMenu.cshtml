@@ -1,0 +1,46 @@
+﻿@using CS.Portal.Core.DAO
+@model MainMenu
+
+<div class="container visible-xs qc-login-xs">
+    <div class="col-md-12">
+        @if (Context.User.Identity.IsAuthenticated)
+        {
+            Html.RenderAction("HiUser", "System");
+        }
+        else
+        {
+            <a class="btn btn-qc btn-transparent" href="@Url.Content("~/tao-tai-khoan")">Đăng ký tài khoản</a>
+            <a class="btn btn-qc" href="@Url.Content("~/tai-khoan/dangnhap")">Đăng nhập</a>
+        }
+    </div>
+</div>
+
+<div class="container container-xs">
+    <nav class="navbar navbar-qc">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#qcNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-logo visible-xs" href="@Url.Content("~")">
+                <img src="@Url.Content("~/"+HttpContext.Current.Application["logo"].ToString())" alt="logo" />
+            </a>
+            <a class="navbar-brand visible-xs" href="@Url.Content("~")">@HttpContext.Current.Application["tenwebsite"]</a>
+        </div>
+        <div class="collapse navbar-collapse" id="qcNavbar">
+            @Html.Raw(Model.stringMenu)
+        </div>
+    </nav>
+</div>
+<div class="container visible-xs block-hotline">
+    <div class="col-md-12 text-center">
+        <ul class="phone-numbers">
+            <li class="phone-number"><p class="phone-title">Hỗ trợ đơn hàng</p>@HttpContext.Current.Application["hotline_hotro"]</li>
+            <li class="phone-number"><p class="phone-title">Khiếu nại dịch vụ</p>@HttpContext.Current.Application["hotline_dichvu"]</li>
+        </ul>
+    </div>
+</div>
+
+
+

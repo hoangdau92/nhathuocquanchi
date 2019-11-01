@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Trang chủ";
+    Layout = "~/Views/Shared/_Layout_quanchi.cshtml";
+}
+
+<div class="container container-xs">
+    <div class="row">
+        <div class="col-lg-12 slide-xs">
+            @{Html.RenderAction("Slider", "Home");}
+        </div>
+    </div>
+</div>
+
+<div class="container block-ykienkh">
+    <h2 class="block-title"><span>KHÁCH HÀNG NÓI GÌ </span>VỀ CHÚNG TÔI</h2>
+    <div class="row">
+        <div class="col-lg-offset-1 col-lg-10">
+            @{Html.RenderAction("YKienKhachHang", "Home");}
+        </div>
+    </div>
+</div>
+
+<div class="container block-dttieubieu">
+    <h2 class="block-title"><span>ĐỐI TÁC TIÊU BIỂU </span>CỦA CHÚNG TÔI</h2>
+    <div class="row">
+        <div class="col-lg-12">
+            @{Html.RenderAction("DoiTacTieuBieu", "Home");}
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid block-tintucmoi">
+    <div class="container">
+        <h2 class="block-title">Tin tức mới</h2>
+        <div class="row">
+            <div class="col-lg-12">
+                @{Html.RenderAction("TinTucMoi", "News");}
+            </div>
+        </div>
+    </div>
+</div>
+
+@section jsFooter{
+
+}

@@ -1,0 +1,46 @@
+.footer {
+	.footer-top {
+		background-color: $primary-color;
+		color: #fff;
+		padding-top: 20px;
+		padding-bottom: 60px;
+		h3 {
+			font-weight: bold;
+			i {
+				padding-right: 5px;
+			}
+		}
+		p {
+			text-align: justify;
+		}
+	}
+	.footer-bottom {
+		text-align: justify;
+		background-color: $secondary-color;
+		color: #fff;
+		padding-top: 15px;
+		padding-bottom: 15px;
+		.contact-facebook .text {
+			color: #fff;
+		}
+		strong {
+			margin-bottom: 10px;
+			display: block;
+			font-size: 14pt;
+		}
+
+	}
+	.footer-copyright {
+		background-color: $secondary-color;
+		color: #fff;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		.copyright {
+			font-style: italic;
+			font-family: 'Poppins', sans-serif;
+			a {
+				color: #fff;
+			}
+		}
+	}
+}

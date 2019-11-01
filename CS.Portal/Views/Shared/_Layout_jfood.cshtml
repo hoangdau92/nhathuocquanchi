@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>@HttpContext.Current.Application["tenwebsite"]</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="@Url.Content("~/Images/Icons/favicon.ico")" type="image/x-icon">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
+    @*<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700|Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>*@
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700&display=swap&subset=vietnamese" rel="stylesheet">
+    
+    <link rel="stylesheet" href="@Url.Content("~/Content/jFood/css/open-iconic-bootstrap.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/jFood/css/bootstrap.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/jFood/css/animate.css")">
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/jFood/css/owl.carousel.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/jFood/css/owl.theme.default.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/jFood/css/magnific-popup.css")">
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/jFood/css/aos.css")">
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/jFood/css/ionicons.min.css")">
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/jFood/css/bootstrap-datepicker.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/jFood/css/jquery.timepicker.css")">
+    <link href="@Url.Content("~/Content/CSSBase/jquery-confirm.min.css")" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/jFood/css/flaticon.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/jFood/css/icomoon.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/jFood/css/font-awesome.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/jFood/css/style.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/jFood/hdstyle.css")">
+</head>
+<body class="goto-here">
+    <div class="py-1 bg-primary d-none d-sm-block">
+        <div class="container">
+            <div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
+                <div class="col-lg-12 d-block">
+                    <div class="row d-flex">
+                        <div class="col-md pr-4 d-flex topper align-items-center">
+                            <div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
+                            <span class="text">@HttpContext.Current.Application["sodienthoai"]</span>
+                        </div>
+                        <div class="col-md pr-4 d-flex topper align-items-center">
+                            <div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
+                            <span class="text">@HttpContext.Current.Application["email"]</span>
+                        </div>
+                        <div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
+                            <span class="text">@HttpContext.Current.Application["toptext"]</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- START nav -->
+    @{Html.RenderAction("MainMenu", "System");}
+    
+    <!-- END nav -->
+    @RenderBody()
+   
+    @{Html.RenderAction("Footer", "System");}
+    
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+
+
+    <script src="@Url.Content("~/Content/jFood/js/jquery-2.1.3.min.js")"></script>
+    <script src="@Url.Content("~/Content/jFood/js/jquery-ui.min.js")"></script>
+    <script src="@Url.Content("~/Content/jFood/js/popper.min.js")"></script>
+    <script src="@Url.Content("~/Content/jFood/js/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Content/jFood/js/jquery.easing.1.3.js")"></script>
+    <script src="@Url.Content("~/Content/jFood/js/jquery.waypoints.min.js")"></script>
+    <script src="@Url.Content("~/Content/jFood/js/jquery.stellar.min.js")"></script>
+    <script src="@Url.Content("~/Content/jFood/js/owl.carousel.min.js")"></script>
+    <script src="@Url.Content("~/Content/jFood/js/jquery.magnific-popup.min.js")"></script>
+    <script src="@Url.Content("~/Content/jFood/js/aos.js")"></script>
+    <script src="@Url.Content("~/Content/jFood/js/jquery.animateNumber.min.js")"></script>
+    <script src="@Url.Content("~/Content/jFood/js/bootstrap-datepicker.js")"></script>
+    <script src="@Url.Content("~/Content/jFood/js/scrollax.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/JSBase/jquery-confirm.min.js")"></script>
+    <script src="@Url.Content("~/Content/jFood/js/main.js")"></script>
+    <script src="@Url.Content("~/Scripts/JSBase/Web.config.js")"></script>
+    @*<script src="@Url.Content("~/Content/jFood/js/google-map.js")"></script>*@
+    @RenderSection("jsFooter", required: false)
+
+</body>
+</html>

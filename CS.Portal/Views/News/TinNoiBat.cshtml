@@ -1,0 +1,26 @@
+﻿@model IEnumerable<CS.Portal.Core.EF.CMS_News>
+@using CS.Portal.Common;
+
+<div class="block-sidebar-right block-ttnoibat">
+    <h3 class="heading">Tin tức nổi bật</h3>
+    <ul class="block-body">
+        @if (Model != null && Model.Count() > 0)
+        {
+            foreach (var item in Model)
+            {
+                <li>
+                    <div class="item-img">
+                        <a title="@item.TITLE" href="@Utilities.UrlContent_2(item.CMS_Categories.KEY, item.TITLE, item.ID.ToString())">
+                            <img src="@Url.Content(@item.PICTURE)" alt="anh tin bai" />
+                        </a>
+                    </div>
+                    <div class="item-title">
+                        <a title="@item.TITLE" href="@Utilities.UrlContent_2(item.CMS_Categories.KEY, item.TITLE, item.ID.ToString())">
+                            <h4>@item.TITLE</h4>
+                        </a>
+                    </div>
+                </li>
+            }
+        }
+    </ul>
+</div>

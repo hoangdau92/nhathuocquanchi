@@ -1,0 +1,51 @@
+﻿@model PagedList.IPagedList<CS.Portal.Core.EF.CMS_News_LayTinBaiCongKhaiTheoCateKey_Result>
+@using PagedList.Mvc;
+@using CS.Portal.Common;
+
+<div class="panel panel-default box-news">
+    <div class="panel-heading">
+        @ViewBag.TITLE
+    </div>
+    <div class="panel-body">
+        @if (Model != null && Model.Count() > 0)
+        {
+            foreach (var item in Model)
+            {
+                <div class="row news-item">
+                    @if (item.PICTURE != null && item.PICTURE != "")
+                    {
+                        <div class="col-md-3 col-xs-12">
+                            <a title="@Model.FirstOrDefault().TITLE" href="@Utilities.UrlContent(@Model.FirstOrDefault().CateKey, @Model.FirstOrDefault().TITLE, "tt", @Model.FirstOrDefault().ID.ToString())">
+                                <img src="@Utilities.SiteURL_Resources()@item.PICTURE" alt="anh tin bai" />
+                            </a>
+                        </div>
+                        <div class="col-md-9 col-xs-12">
+                            <div class="feature-news">
+                                <h4 class="title"><a title="@Model.FirstOrDefault().TITLE" href="@Utilities.UrlContent(@Model.FirstOrDefault().CateKey, @Model.FirstOrDefault().TITLE, "tt", @Model.FirstOrDefault().ID.ToString())">@item.TITLE</a></h4>
+                                <p class="excerpt">@Html.Raw(Utilities.ReturnSubString(500, item.EXCERPT))</p>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-xs-12">
+                            <div class="feature-news">
+                                <h4 class="title">
+                                    <a title="@item.TITLE" href="@Utilities.UrlContent(@item.CateKey, @item.TITLE, "tt", @item.ID.ToString())">@item.TITLE</a>
+                                </h4>
+                                <p class="excerpt">@Html.Raw(Utilities.ReturnSubString(500, item.EXCERPT))</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            <div class="row">
+                <div class="col-lg-12" style="text-align: right;">
+                    Tổng số: <b>@Model.TotalItemCount</b> bản ghi.
+                    @Html.PagedListPager(Model, page => Url.Content(@Request.Url.GetLeftPart(UriPartial.Path) + "?page=" + page))
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@*Action("index", "cs/home", new { page, q = ViewBag.q, category = @ViewBag.CATE }*@

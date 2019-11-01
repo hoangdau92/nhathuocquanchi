@@ -1,0 +1,77 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+
+<div class="row" id="app">
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fas fa-dollar-sign"></i> Thông tin chung
+            </div>
+            <div class="panel-body thongtinchung">
+                <p>Số đơn hàng trong năm @ViewBag.NAM: <span>@ViewBag.SODONHANG</span></p>
+                <p>Số đơn hàng trong tháng @ViewBag.THANG: <span>@ViewBag.SODONHANGTHANG</span></p>
+                <p>Số đơn hàng chưa xử lý: <span>@ViewBag.DHCHUAXULY</span></p>
+                <p>Số lượng thành viên: <span>@ViewBag.SOTHANHVIEN</span></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fas fa-dollar-sign"></i> Thống kê số lượng thuốc theo danh mục
+            </div>
+            <div class="panel-body">
+                <input type="hidden" value="@ViewBag.TENLOAI" id="loaisp" />
+                <input type="hidden" value="@ViewBag.SOLUONGSP" id="soluongsp" />
+                <div id="chart_loaisanpham"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fas fa-dollar-sign"></i> Thống kê tổng tiền theo đơn hàng đã đặt của năm @ViewBag.NAM
+            </div>
+            <div class="panel-body">
+                <input type="hidden" value="@ViewBag.TIENTHEOTHANG" id="tienhangthang" />
+                <div id="chart_tienhangthang"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fas fa-dollar-sign"></i> Thống kê số lượng thuốc bán trong năm @ViewBag.NAM
+            </div>
+            <div class="panel-body">
+                <input type="hidden" value="@ViewBag.TENSP" id="tensp" />
+                <input type="hidden" value="@ViewBag.SOLUONGBAN" id="soluongban" />
+                <div id="chart_sanpham"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fas fa-dollar-sign"></i> Thống kê khách hàng mua nhiều nhất năm @ViewBag.NAM
+            </div>
+            <div class="panel-body">
+                <input type="hidden" value="@ViewBag.TENKH" id="tenkh" />
+                <input type="hidden" value="@ViewBag.TIENMUA" id="tienmua" />
+                <div id="chart_khachhang"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<link href="@Url.Content("~/Content/c3chart/css/c3.css")" rel="stylesheet" />
+@section jsFooter{
+    <script src="@Url.Content("~/Content/c3chart/js/d3-5.8.2.min.js")"></script>
+    <script src="@Url.Content("~/Content/c3chart/js/c3.js")"></script>
+    <script src="@Url.Content("~/Content/c3chart/js/initChart.js")"></script>
+    <script type="text/javascript">
+
+    </script>
+}

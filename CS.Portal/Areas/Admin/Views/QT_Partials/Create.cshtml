@@ -1,0 +1,105 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+@using CS.Portal.Core.EF
+@model CS.Portal.Core.EF.CSF_Partials
+@section header{
+    Thêm mới partial view
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Thông tin partial view
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("Create", "QT_Partials", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div class="form-group">
+                                <div class="control-group row">
+                                    <div class="col-lg-3">
+                                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+                                    </div>
+                                    <div class="col-lg-9">
+                                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @data_validation_required_message = "Không được bỏ trống" })
+                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="control-group row">
+                                    <div class="col-lg-3">
+                                        @Html.LabelFor(model => model.Key, htmlAttributes: new { @class = "control-label" })
+                                    </div>
+                                    <div class="col-lg-9">
+                                        @Html.TextBoxFor(model => model.Key, new { @class = "form-control", @data_validation_required_message = "Không được bỏ trống" })
+                                        @Html.ValidationMessageFor(model => model.Key, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-3">
+                                    @Html.LabelFor(model => model.ModuleID, htmlAttributes: new { @class = "control-label" })
+                                </div>
+                                <div class="col-lg-9">
+                                    <select id="@Html.IdFor(model => model.ModuleID)" name="@Html.IdFor(model => model.ModuleID)" class="form-control">
+                                        <option value="">Chọn module</option>
+                                        @if (TempData["module"] != null)
+                                        {
+                                            List<CSF_Modules> lData = (List<CSF_Modules>)TempData["module"];
+                                            for (int i = 0; i < lData.Count; i++)
+                                            {
+                                                <option value="@lData[i].ID">@lData[i].Name</option>
+                                            }
+                                        }
+                                    </select>
+                                    @Html.ValidationMessageFor(model => model.ModuleID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                @{
+                    System.Collections.Generic.List<string> controllers = (System.Collections.Generic.List<string>)TempData["listController"];
+                                }
+                                <div class="col-lg-3">
+                                    <label class="control-label">Controller </label>
+                                </div>
+                                <div class="col-lg-9">
+                                    <select id="Controller" name="Controller" class="form-control">
+                                        <option value="0">Chọn Controller</option>
+                                        @if (controllers != null && controllers.Count > 0)
+                                        {
+                                            for (int j = 0; j < controllers.Count; j++)
+                                            {
+                                                <option value="@controllers[j]">@controllers[j]</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>   <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <input type="submit" value="Lưu" class="btn btn-primary" />
+                                        <a class="btn btn-default" href="@Url.Content("~/Admin/QT_Partials/Index")">Quay lại</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section jsFooter{
+    <script src="@Url.Content("~/areas/admin/jscontroller/QT_Partials.js")"></script>
+    <script src="@Url.Content("~/Scripts/JSBase/jqBootstrapValidation.js")"></script>
+    <script>jQuery(function () { jQuery("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); });</script>
+}

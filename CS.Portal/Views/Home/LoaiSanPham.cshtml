@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Core_MVC.Models.JF_LoaiSanPham>
+@using CS.Portal.Common;
+
+<h3 class="heading">Danh mục</h3>
+<ul class="categories">
+    @if (Model != null && Model.Count() > 0)
+    {
+        foreach (var item in Model)
+        {
+            <li><a href="@Url.Content("~/san-pham/" + Utilities.RemoveUrlMarks(item.ten)+"-"+item.id)">@item.ten <span>(@item.JF_SanPham.Where(x => x.kichhoat == true).Count())</span></a></li>
+        }
+    }
+</ul>

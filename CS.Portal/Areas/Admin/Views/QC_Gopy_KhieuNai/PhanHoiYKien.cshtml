@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "PhanHoiYKien";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+@model Core_MVC.Models.QC_Gopy_KhieuNai
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Phản hồi ý kiến khách hàng
+            </div>
+            @if (TempData["AlertMessage"] != null)
+            {
+                <div id="AlertBox" class="alert @TempData["AlertType"] hide">
+                    @TempData["AlertMessage"]
+                </div>
+            }
+            <div class="panel-body">
+                @using (Html.BeginForm("PhanHoiYKien", "QC_Gopy_KhieuNai", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        <div class="control-group row">
+                            <div class="col-lg-12">
+                                <label><strong>Họ và tên:</strong></label>
+                                <label>@Model.QC_KhachHang.tendaydu</label>
+                            </div>
+                        </div>
+                        <div class="control-group row">
+                            <div class="col-lg-12">
+                                <label><strong>Ngày gửi:</strong></label>
+                                <label>@Model.ngaygopy.Value.ToString("dd-MM-yyyy")</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="control-group row">
+                            <div class="col-lg-12">
+                                <label><strong>Nội dung khiếu nại</strong></label>
+                                <p>@Model.noidungkhieunai</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="control-group row">
+                            <div class="col-lg-12">
+                                <label><strong>Nội dung góp ý</strong></label>
+                                <p>@Model.noidunggopy</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="control-group row">
+                            <div class="col-lg-12">
+                                <label><strong>Trả lời</strong></label>
+                                @Html.TextAreaFor(model => model.noidungphanhoi, new { @class = "form-control", placeholder = "Phản hồi ý kiến của khách hàng", cols = "50", rows = "6" })
+                                @Html.ValidationMessageFor(model => model.noidungphanhoi, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <input type="submit" value="Phản hồi" class="btn btn-primary" />
+                                    <a class="btn btn-default" href="@Url.Content("~/Admin/QC_Gopy_KhieuNai/Index")">Quay lại</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

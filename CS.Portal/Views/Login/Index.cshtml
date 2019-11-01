@@ -1,0 +1,62 @@
+﻿@model CS.Portal.Core.EF.LoginModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Trang quản trị</title>
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700|Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="@Url.Content("~/Content/loginform/animate.css")">
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/loginform/style.css")">
+    <script src="@Url.Content("~/Scripts/JSBase/jquery.min.js")" type="text/javascript"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="top">
+            <h1 id="title" class="hidden"><span id="logo"><span>Quản trị Hệ thống</span></span></h1>
+        </div>
+        @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { role = "form", @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="login-box animated fadeInUp">
+                <div class="box-header">
+                    <h2>Log In</h2>
+                </div>
+                <label for="UserName">Tên đăng nhập</label>
+                <br />
+                <input type="text" id="username" name="UserName">
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                <br />
+                <label for="Password">Mật khẩu</label>
+                <br />
+                <input type="password" id="password" name="Password">
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                <br />
+                <button type="submit">Sign In</button>
+                <br />
+                <a href="javascript:void(0)"><p class="small">Forgot your password?</p></a>
+            </div>
+        }
+    </div>
+</body>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#logo').addClass('animated fadeInDown');
+        $("input:text:visible:first").focus();
+    });
+    $('#username').focus(function () {
+        $('label[for="username"]').addClass('selected');
+    });
+    $('#username').blur(function () {
+        $('label[for="username"]').removeClass('selected');
+    });
+    $('#password').focus(function () {
+        $('label[for="password"]').addClass('selected');
+    });
+    $('#password').blur(function () {
+        $('label[for="password"]').removeClass('selected');
+    });
+</script>
+</html>

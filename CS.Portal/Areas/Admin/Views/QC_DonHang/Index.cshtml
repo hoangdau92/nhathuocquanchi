@@ -1,0 +1,157 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+
+@model PagedList.IPagedList<QC_DonHang>
+@using PagedList.Mvc;
+@using Core_MVC.Models
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Quản lý đơn hàng
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("Index", "QC_DonHang", FormMethod.Get))
+                {
+
+                    <div class="row form-group">
+                        <div class="col-md-2">
+                            <label class="control-label">Mã đơn hàng:</label>
+                        </div>
+                        <div class="col-lg-4">
+                            <input type="text" id="ma" value="@ViewBag.MA" placeholder="Nhập mã đơn hàng để tìm kiếm" class="form-control" name="ma" />
+                        </div>
+                        <div class="col-md-2">
+                            <label class="control-label">Trạng thái:</label>
+                        </div>
+                        <div class="col-lg-4">
+                            <select name="trangthai" class="form-control" id="trangthai">
+                                <option value="-1" @(ViewBag.TRANGTHAI == -1 ? "selected" : "")>-- Tất cả --</option>
+                                <option value="1" @(ViewBag.TRANGTHAI == 1 ? "selected" : "")>Đã xử lý</option> 
+                                <option value="0" @(ViewBag.TRANGTHAI == 0 ? "selected" : "")>Chưa xử lý</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-2">
+                            <label>Từ ngày:</label>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" name="tungay" class="form-control" id="tungay" value="@ViewBag.TUNGAY" autocomplete="off" />
+                        </div>
+                        <div class="col-md-2">
+                            <label>Đến ngày:</label>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" name="denngay" class="form-control" id="denngay" value="@ViewBag.DENNGAY" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 text-center">
+                            <button id="btnTimKiem" type="submit" class="btn btn-success" title="Tìm kiếm"><span class="glyphicon glyphicon-search"></span> Tìm kiếm</button>
+                        </div>
+                    </div>
+                }
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <i class='fa fa-check text-success' aria-hidden='true'></i> Đã xử lý | <i class='fas fa-spinner text-primary' aria-hidden='true'></i> Chưa xử lý | <i class='fa fa-times text-danger' aria-hidden='true'></i> Đã hủy đơn
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Mã đơn hàng</th>
+                                <th>Ngày đặt hàng</th>
+                                <th>Tên khách hàng</th>
+                                <th>Địa chỉ</th>
+                                <th width="25%">Sản phẩm</th>
+                                <th width="5%">Giá (trước km)</th>
+                                <th width="5%">Giá (sau km)</th>
+                                <th>Trạng thái</th>
+                                <th>Mô tả</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                var i = 0;
+                                var index = 0;
+                            }
+                            @foreach (var item in Model)
+                            {
+                                i++;
+                                index = (Model.PageNumber - 1) * 10 + i;
+                                string trangthai = "";
+                                if (item.trangthai == true)
+                                {
+                                    trangthai = "<i class='fa fa-check text-success' aria-hidden='true'></i>";
+                                }
+                                else if (item.trangthai == false)
+                                {
+                                    trangthai = "<i class='fas fa-spinner text-primary' aria-hidden='true'></i>";
+                                }
+                                else
+                                {
+                                    trangthai = "<i class='fa fa-times text-danger' aria-hidden='true'></i>";
+
+                                }
+                            <tr id="row_@item.id">
+                                <td align="center">@index</td>
+                                <td align="center">@item.madonhang</td>
+                                <td align="center">
+                                    @Convert.ToDateTime(item.ngaydathang).ToString("HH:mm")<br />
+                                    @Convert.ToDateTime(item.ngaydathang).ToString("dd-MM-yyyy")
+                                </td>
+                                <td>
+                                    @item.QC_KhachHang.tendaydu
+                                </td>
+                                <td>
+                                    @item.QC_KhachHang.diachi
+                                </td>
+                                <td>
+                                    @foreach (var item2 in item.QC_Thuoc_DonHang)
+                                    {
+                                        @Html.Raw(item2.QC_Thuoc.ten + "; ")
+                                    }
+                                </td>
+                                <td align="right">@string.Format("{0:N0}", item.thanhtientruocgiam)</td>
+                                <td align="right">@string.Format("{0:N0}", item.thanhtiensaugiam)</td>
+                                <td align="center">@Html.Raw(trangthai)</td>
+                                <td>@item.motaxuly</td>
+                                <td align="center">
+                                    <a class="text-primary" href="@Url.Content("~/admin/QC_DonHang/details/")@item.id" type="button" title="Xem chi tiết đơn hàng" target="_blank"><i class="fas fa-info-circle"></i></a>
+                                    <a class="text-danger" href="javascript:void(0)" onclick='del(@item.id, "QC_DonHang")' title="Xóa"><span class="glyphicon glyphicon-trash"></span></a>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="col-lg-12" style="text-align: right;">
+                        Tổng số: <b>@Model.TotalItemCount</b> bản ghi.
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, q = ViewBag.q }))
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+@section jsFooter{
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="@Url.Content("~/areas/admin/jscontroller/JF_Common.js")"></script>
+    <script type="text/javascript">
+        jQuery('#tungay').datepicker({
+            dateFormat: 'dd-mm-yy'
+        });
+        jQuery('#denngay').datepicker({
+            dateFormat: 'dd-mm-yy'
+        });
+        jQuery('#trangthai').val(@ViewBag.TRANGTHAI);
+        //jQuery("input[data-val-date]").removeAttr("data-val-date");
+    </script>
+}

@@ -1,0 +1,83 @@
+﻿@model CS.Portal.Core.EF.LoginModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CS-Đăng nhập hệ thống</title>
+    <link href="@Url.Content("~/Content/CSSBase/font-awesome.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/CSSBase/jquery-ui.css")" rel="stylesheet" />
+    <!-- Latest compiled and minified JavaScript -->
+    <link href="@Url.Content("~/Content/CSSBase/bootstrap.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/CS01/Style.css")" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="container">
+        <div id="loginbox" style="margin-top:100px;" class="mainbox col-md-5 col-md-offset-4 col-sm-8 col-sm-offset-2">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title">CS-Đăng nhập hệ thống</div>
+                    <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Quên mật khẩu?</a></div>
+                </div>
+                <div style="padding:10px;" class="panel-body">
+                    <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+                    @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { role = "form", @class = "form-horizontal" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            <label class="control-label col-md-2"></label>
+                            <div class="col-md-10">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.UserName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.RememberPass, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                <div class="checkbox">
+                                    @Html.CheckBoxFor(model => model.RememberPass, new { htmlAttributes = new { @class = "form-control pull-left" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-4 col-md-8">
+                                <input type="submit" value="Đăng nhập" class="btn btn-success" />
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="@Url.Content("~/Scripts/JSBase/jquery.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/JSBase/jquery-ui.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $.noConflict();
+    </script>
+    <!--Validate-->
+    <script src="@Url.Content("~/Scripts/JSBase/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/JSBase/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <!--Confirm-->
+    <script src="@Url.Content("~/Scripts/JSBase/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="@Url.Content("~/Scripts/JSBase/bootstrap.min.js")" type="text/javascript"></script>
+</body>
+</html>

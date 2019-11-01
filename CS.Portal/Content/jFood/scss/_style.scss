@@ -1,0 +1,308 @@
+// start-carousel
+.carousel-multi-item {
+	margin-bottom: 10px;
+	//border: 1px solid #f2f2f2;
+    padding: 10px;
+    padding-top: 15px;
+	.carousel-inner {
+		.carousel-item {
+			.card {
+				height: 100%;
+				padding: 5px;
+				.card-body {
+					padding: 0;
+					position: relative;
+					.card-title {
+						font-size: 11pt;
+						margin: 0;
+						position: absolute;
+						bottom: 0px;
+					    width: 100%;
+					    background: rgba(0, 0, 0, 0.6);
+					    padding: 3px;
+					    color: #fff;
+					}
+				}	
+			}
+						
+		}
+	}
+	.carousel-indicators {
+		bottom: -35px;
+		li {
+			background: transparent;
+			width: 13px;
+		}
+		li:after {
+			display: none;
+		}
+		li:before {
+			background-color: #82ae46;
+			height: 5px;
+			top: -5px;
+		}
+	}
+}
+
+// end-carousel
+
+.jc-bs3-row {
+	position: relative;
+	.jconfirm-box-container {
+		position: absolute;
+		left: 50%;
+		@include translateX(-50%); 
+	}
+}
+
+#giohang {
+	input[type="number"] {
+		max-width: 100px;
+		text-align: right;
+	}
+}
+
+.ftco-section {
+	padding: 1em 0;
+}
+
+.list-product {
+	.col-md-4 {
+		margin-bottom: 15px;
+	}
+	.product {
+		margin-bottom: 0;
+		height: 100%;
+		border-color: #d9d9d9;
+		.img-prod {
+			padding: 10px;
+			img {
+				width: 100%;
+			}
+		}
+	}	
+}
+
+h3.heading {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px double #000;
+}
+
+//tin trang chu
+.box-news {
+	border: 1px solid #d9d9d9;
+	height: 100%;
+	.panel-heading {
+	    font-size: 17pt;
+	    padding-left: 10px;
+	    color: #82ae46;
+	}
+	.panel-body {
+		padding: 10px;
+		.news-item {
+			position: relative;
+			img {
+				width: 100%;
+			}
+			.title {
+				text-align: justify;
+				font-size: 16px;
+				margin: 0;
+				a {
+					color: #000;
+					padding-left: 15px;
+				}
+				i {
+					font-size: 8px;
+					color: $primary-text-color;
+				    font-size: 8px;
+				    position: absolute;
+				    left: 15px;
+				    top: 6px;
+				}
+			}
+			&:not(:last-child):after {
+				position: absolute;
+			    border-bottom: 1px dotted #dee2e6;
+			    left: 15px;
+			    right: 15px;
+			    bottom: -10px;
+			    content: "";
+			}
+			& + .news-item {
+				margin-top: 15px;
+			}
+			.col-sm-8 {
+				padding-left: 0;
+				.title a{
+					padding-left: 0;
+				}
+			}
+		}
+		p {
+			text-align: justify;
+			color: #000;
+		}
+	}
+}
+
+//chi tiet tin tuc
+.news {
+	img {
+		max-width: 100%;
+	}
+	.news-excerpt {
+
+	}
+	.news-content {
+		p {
+			text-align: justify;
+		}
+	}
+}
+
+.box-cate {
+	.news-item {
+		position: relative;
+		img {
+			width: 100%;
+		}
+		.title {
+			text-align: justify;
+			font-size: 16px;
+			margin: 0;
+			a {
+				color: $primary-text-color;
+				font-size: 15pt;
+				padding-left: 15px;
+			}
+			i {
+				font-size: 8px;
+				color: $primary-text-color;
+			    font-size: 8px;
+			    position: absolute;
+			    left: 15px;
+			    top: 10px;
+			}
+		}
+		&:not(:last-child):after {
+			position: absolute;
+		    border-bottom: 1px dotted #dee2e6;
+		    left: 15px;
+		    right: 15px;
+		    bottom: -10px;
+		    content: "";
+		}
+		& + .news-item {
+			margin-top: 15px;
+		}
+		.col-md-9 {
+			padding-left: 0;
+			.title a{
+				padding-left: 0;
+			}
+		}
+	}
+	p {
+		text-align: justify;
+		color: #000;
+		margin: 0;
+	}
+}
+
+ul.pagination {
+	display: inline-flex;
+	margin-top: 15px;
+	li {
+		a {
+			padding: 0.5rem 0.75rem;
+		    background-color: #fff;
+		    border: 1px solid #ddd;
+		    //border-left: none;
+    		color: #636c72;
+		}
+		cursor: pointer;
+		&:hover {
+			a {
+				background-color: #005e99;	
+				border-color: #005e99;
+				color: #fff;
+			}
+			
+		}
+
+		&.active {
+			a {
+				background: $primary-text-color;
+				border-color: $primary-text-color;
+				color: #fff;
+			}
+			&:hover {
+				cursor: default;
+				a {
+					color: #fff;
+				}
+			}		
+		}
+	}
+}
+
+.jf-sanpham {
+	tr {
+		td.anhdaidien {
+			position: relative;
+			img {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				display: none;
+			}
+		}
+		&:hover {
+			td.anhdaidien {
+				img {
+					display: block;
+				}
+			}
+		}
+	}
+}
+
+.product-details {
+	.img-preview {
+		padding-top: 30px;
+		text-align: center;
+	}
+
+	.price {
+		.price-dc {
+			font-size: 20px;
+			text-decoration: line-through;
+			color: #b3b3b3;
+		}
+		.price-sale {
+			font-size: 20px;
+			color: $primary-text-color;
+		}
+	}
+
+	textarea {
+		width: 100%;
+		background: transparent;
+		border: none;
+		resize: none;
+		text-align: justify;
+		&:focus {
+			outline: none;
+		}
+	}
+}
+
+.thietlapwebsite {
+	padding: 15px;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}

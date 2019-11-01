@@ -1,0 +1,110 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+
+@using PagedList.Mvc;
+@using Core_MVC.Models
+@model PagedList.IPagedList<QC_MaGiamGia>
+@using Core_MVC.Common;
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Quản lý mã giảm giá
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("Index", "QC_MaGiamGia", FormMethod.Get))
+                {
+
+                    <div class="row form-group">
+                        <div class="col-lg-4">
+                            <input type="text" id="txtSearch" value="@ViewBag.SearchString" placeholder="...Nhập tên." class="form-control" name="key" />
+                        </div>
+                        <div class="col-lg-4">
+                            <select id="loaisanpham" name="loaigiamgia" class="form-control">
+                                <option value="">Chọn loại giảm giá</option>
+                                @if (TempData["loaigiamgia"] != null)
+                                {
+                                    List<QC_LoaiGiamGia> lData = (List<QC_LoaiGiamGia>)TempData["loaigiamgia"];
+                                    for (int j = 0; j < lData.Count; j++)
+                                    {
+                                        if (ViewBag.LOAIGIAMGIA == lData[j].id)
+                                        {
+                                            <option value="@lData[j].id" selected>@lData[j].ten</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@lData[j].id">@lData[j].ten</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-lg-4">
+                            <button type="button" class="btn btn-active" onclick="clearSearch()" title="Hủy">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                            <button id="btnTimKiem" type="submit" class="btn btn-success" title="Tìm kiếm"><span class="glyphicon glyphicon-search"></span></button>
+                            <a class="btn btn-primary" href="@Url.Content("~/Admin/QC_MaGiamGia/Create")">Thêm mới</a>
+                        </div>
+                    </div>
+                }
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên mã</th>
+                                <th>Giảm</th>
+                                <th>Từ ngày</th>
+                                <th>Đến ngày</th>
+                                <th>Đối tượng</th>
+                                <th>Trạng thái</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                var i = 0;
+                                var index = 0;
+                                string kyhieu = "";
+                            }
+                            @foreach (var item in Model)
+                            {
+                                kyhieu = item.idloaigiamgia == LOAI_GIAMGIA.PHANTRAM ? "%" : "VNĐ";
+                                i++;
+                                index = (Model.PageNumber - 1) * 10 + i;
+                                <tr id="row_@item.id">
+                                    <td align="center">@index</td>
+                                    <td>@item.tenma</td>
+                                    <td align="right">@item.giatri @kyhieu</td>
+                                    <td align="center">@Convert.ToDateTime(item.tungay).ToString("dd-MM-yyyy")</td>
+                                    <td align="center">@Convert.ToDateTime(item.denngay).ToString("dd-MM-yyyy")</td>
+                                    <td>@item.QC_KieuDoiTuong.ten</td>
+                                    <td align="center">
+                                        <label class="checkbox-inline" style="margin-left: 10px;">
+                                            @Html.CheckBox("1", (bool)item.kichhoat, new { @disabled = "" }) Kích hoạt
+                                        </label>
+                                    </td>
+                                    <td align="center">
+                                        <a class="text-primary" href="@Url.Content("~/Admin/QC_MaGiamGia/Edit/")@item.id" type="button" title="Sửa"><span class="glyphicon glyphicon-edit"></span></a>
+                                        <a class="text-danger" href="javascript:void(0)" onclick='del(@item.id, "QC_MaGiamGia")' title="Xóa"><span class="glyphicon glyphicon-trash"></span></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="col-lg-12" style="text-align: right;">
+                        Tổng số: <b>@Model.TotalItemCount</b> bản ghi.
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, q = ViewBag.q }))
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section jsFooter{
+    <script src="@Url.Content("~/areas/admin/jscontroller/JF_Common.js")"></script>
+}

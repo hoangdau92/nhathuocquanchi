@@ -1,0 +1,53 @@
+﻿@model Core_MVC.Models.CSF_ThietLapWebsite
+<footer class="footer">
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h3 class="title"><i class="fa fa-usd"></i>Cam kết giá tốt</h3>
+                    <p>Chúng tôi cam kết luôn cung cấp các sản phẩm giá tốt nhất trên thị trường cho khách hàng, kèm theo các ưu đãi và khuyến mại thường xuyên!</p>
+                </div>
+                <div class="col-md-4">
+                    <h3 class="title"><i class="fa fa-truck"></i>Giao hàng tận nơi</h3>
+                    <p>Khách hàng luôn nhận được hàng tại đúng địa điểm và thời gian yêu cầu mà không tốn thời gian quản lý xe hàng, giúp tiết kiệm chi phí và công sức!</p>
+                </div>
+                <div class="col-md-4">
+                    <h3 class="title"><i class="fa fa-phone"></i>Hỗ trợ chi tiết</h3>
+                    <p>Chúng tôi luôn sẵn sàng hỗ trợ khách hàng hết mình trong mọi khâu của công việc, đảm bảo khách hàng luôn hài lòng với chất lượng dịch vụ!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    @if (Model != null)
+    {
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong>@Model.tencongty</strong>
+                        <p>Trụ sở: @Model.diachi</p>
+                        <a class="contact-facebook" target="_blank" href="@Model.facebook">
+                            <span class="text">Kết nối với chúng tôi: </span>
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <textarea class="tarea-special" disabled>@Model.thongtinbosung</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="footer-copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="copyright"> &copy; @DateTime.Now.Year <a href="@Url.Content("~")" title="@HttpContext.Current.Application["tenwebsite"]" rel="home">@HttpContext.Current.Application["tenwebsite"]</a> - @HttpContext.Current.Application["slogan"]</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

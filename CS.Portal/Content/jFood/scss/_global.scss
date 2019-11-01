@@ -1,0 +1,28 @@
+.ftco-section {
+    background-color: #f2f2f2;
+    padding-top: 3em;
+    .container {
+        background-color: #fff;
+    }
+    .hero-bread {
+    	.container {
+    		background: transparent;
+    	}
+    }
+}
+
+table {
+	thead {
+		th {
+			text-align: center;
+			font-weight: bold;
+			vertical-align: middle !important;; 
+		}
+	}
+} 
+
+.main-container {
+	padding-bottom: 35px;
+	margin-top: 15px;
+	margin-bottom: 20px;
+}

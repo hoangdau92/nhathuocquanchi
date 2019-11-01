@@ -1,0 +1,136 @@
+﻿@{
+    ViewBag.Title = "Đăng ký tài khoản";
+    Layout = "~/Views/Shared/_Layout_quanchi.cshtml";
+}
+@model Core_MVC.Models.QC_KhachHang
+
+<div class="container block-khachhangdangky">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Nhập thông tin khách hàng
+                </div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("KhachHangDangKy", "Login", FormMethod.Post,new { enctype="multipart/form-data"}))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="row">
+                            <div class="col-lg-7">
+                                <div class="form-group">
+                                    <div class="control-group row">
+                                        <div class="col-lg-3">
+                                            @Html.LabelFor(model => model.tendaydu, htmlAttributes: new { @class = "control-label" })
+                                        </div>
+                                        <div class="col-lg-9">
+                                            @Html.TextBoxFor(model => model.tendaydu, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.tendaydu, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="control-group row">
+                                        <div class="col-lg-3">
+                                            @Html.LabelFor(model => model.tendangnhap, htmlAttributes: new { @class = "control-label" })
+                                        </div>
+                                        <div class="col-lg-9">
+                                            @Html.TextBoxFor(model => model.tendangnhap, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.tendangnhap, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="control-group row">
+                                        <div class="col-lg-3">
+                                            @Html.LabelFor(model => model.matkhau, htmlAttributes: new { @class = "control-label" })
+                                        </div>
+                                        <div class="col-lg-9">
+                                            @Html.PasswordFor(model => model.matkhau, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.matkhau, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="control-group row">
+                                        <div class="col-lg-3">
+                                            <label>Nhập lại mật khẩu</label>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <input type="password" class="form-control" name="matkhau" data-validation-match-match="matkhau" data-validation-match-message="Mật khẩu không trùng khớp!" />
+                                            <p class="help-block text-danger"></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="control-group row">
+                                        <div class="col-lg-3">
+                                            @Html.LabelFor(model => model.diachi, htmlAttributes: new { @class = "control-label" })
+                                        </div>
+                                        <div class="col-lg-9">
+                                            @Html.TextBoxFor(model => model.diachi, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.diachi, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="control-group row">
+                                        <div class="col-lg-3">
+                                            @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label" })
+                                            
+                                        </div>
+                                        <div class="col-lg-9">
+                                            @Html.TextBoxFor(model => model.email, new { @class = "form-control" })
+                                            <br /><i>Lưu ý: email dùng để kích hoạt tài khoản </i>
+                                            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="control-group row">
+                                        <div class="col-lg-3">
+                                            @Html.LabelFor(model => model.dienthoai, htmlAttributes: new { @class = "control-label" })
+                                        </div>
+                                        <div class="col-lg-9">
+                                            @Html.TextBoxFor(model => model.dienthoai, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.dienthoai, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="control-group row">
+                                         <div class="col-lg-3">
+                                            <label>Ảnh đại diện</label>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <input type="file" name="file" id="file"class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <input type="submit" value="Đăng ký" class="btn btn-primary" />
+                                        <a class="btn btn-default" href="@Url.Content("~/Home/Index")">Quay lại</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section jsFooter{
+    <script src="@Url.Content("~/Scripts/JSBase/jqBootstrapValidation.js")"></script>
+    <script>jQuery(function () { jQuery("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); });</script>
+}
+

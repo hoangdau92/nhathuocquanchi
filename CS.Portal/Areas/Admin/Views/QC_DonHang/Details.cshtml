@@ -1,0 +1,125 @@
+﻿@using Core_MVC.Models
+@model Core_MVC.Models.QC_DonHang
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+@if (Model != null)
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Thông tin đơn hàng: <b>@Model.madonhang</b>
+                    <span class="pull-right">
+                        @if (Model.trangthai == true)
+                        {
+                            @Html.Raw("<i class='fa fa-check text-success' aria-hidden='true'></i> Đơn hàng đã được xử lý")
+                        }
+                        else
+                        {
+                            @Html.Raw("<i class='fa fa-times text-danger' aria-hidden='true'></i> Đơn hàng chưa xử lý")
+                        }
+                    </span>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <b><i class="fas fa-user"></i> Thông tin khách hàng</b>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td><b>Tên khách hàng:</b> @Model.QC_KhachHang.tendaydu</td>
+                                    <td><b>Số điện thoại:</b> @Model.QC_KhachHang.dienthoai</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Địa chỉ:</b> @Model.QC_KhachHang.diachi</td>
+                                    <td><b>Email:</b> @Model.QC_KhachHang.email</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><b>Ngày đặt hàng:</b> @Convert.ToDateTime(Model.ngaydathang).ToString("HH:mm dd-MM-yyyy")</td>
+                                    
+                                </tr>
+                                
+                                <tr>
+                                    <td colspan="2"><b>Phương thức thanh toán:</b> @Model.QC_PhuongThucThanhToan.tieude</td>
+                                </tr>
+                            </table>
+                            <b><i class="fas fa-list-ol"></i> Thông tin đặt hàng</b>
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Loại</th>
+                                        <th>Đơn vị</th>
+                                        <th>Số lượng</th>
+                                        <th>Giá tiền</th>
+                                        <th>Thành tiền</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!--decimal tongtien = 0;-->
+                                    @{ int i = 0;}
+                                    @foreach (var item in Model.QC_Thuoc_DonHang)
+                                    {
+                                        i++;
+                                        <tr>
+                                            <td align="center">@i</td>
+                                            <td>@item.QC_Thuoc.ten</td>
+                                            <td>@item.QC_Thuoc.QC_LoaiThuoc.ten</td>
+                                            <td align="center">@item.QC_Thuoc.QC_DonViThuoc.ten</td>
+                                            <td align="right">@Convert.ToInt32(item.soluong)</td>
+                                            <td align="right">@string.Format("{0:N0}", item.giatien)</td>
+                                            <td align="right">@string.Format("{0:N0}", item.thanhtien)</td>
+                                        </tr>
+                                    }
+                                    <tr>
+                                        <td></td>
+                                        <td colspan="5" align="right"><b>Giảm giá:</b></td>
+                                        <td align="right">@string.Format("{0:N0}", @Model.sotiengiam)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td colspan="5" align="right"><b>Tổng tiền:</b></td>
+                                        <td align="right">@string.Format("{0:N0}", Model.thanhtiensaugiam)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    @using (Html.BeginForm("details", "QC_DonHang", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@Model.id" />
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <b><i class="fas fa-cogs"></i> Xử lý đơn hàng</b>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-1">
+                                <label>Ghi chú</label>
+                            </div>
+                            <div class="col-md-11">
+                                <input type="text" name="motaxuly" value="@Model.motaxuly" placeholder="Ghi chú về đơn hàng" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-12 text-center">
+                                @if (Model.trangthai == false)
+                                {
+                                    @Html.Raw("<button class='btn btn-primary' type='submit' name='luu'>Lưu xử lý</button>")
+                                }
+                                else
+                                {
+                                    @Html.Raw("<button class='btn btn-primary' type='submit' name='luu'>Lưu</button> ")
+                                    @Html.Raw("<button class='btn btn-danger' type='submit' name='huy'>Hủy xử lý</button>")
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}

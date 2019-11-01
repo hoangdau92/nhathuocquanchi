@@ -1,0 +1,76 @@
+.header {
+	padding-top: 15px;
+	padding-left: 15px;
+	.header-left {
+		.header-logo {
+			display: inline-block;
+			padding: 15px;
+			padding-left: 0;
+			img {
+				width: 100%;
+				max-width: 120px;	
+			}
+		}
+		.site-title {
+			display: inline-block;
+			position: relative;
+			.title {
+				color: $primary-text-color;
+				font-size: 2.57rem;
+				font-family: 'Roboto', sans-serif;
+				text-transform: uppercase;
+				font-weight: bold;
+			}
+			.slogan {
+				position: absolute;
+				bottom: -20px;
+				left: 0;
+				color: red;
+    			font-size: 1.65rem;
+    			font-weight: bold;
+    			font-family: 'Open Sans', sans-serif;
+			}
+		}
+	}
+	.header-right {
+		text-align: right;
+		.account-links {
+			.btn-transparent {
+				background-color: transparent;
+				color: $primary-color;
+			}
+		}
+		.phone {
+			.fa-stack {
+				display: inline-block;
+				color: $primary-color;
+				margin-top: 5px;
+			}
+			.phone-numbers {
+				vertical-align: middle;
+				margin-top: 10px;
+				font-size: 1.65em;
+				display: inline-block;
+				font-family: 'Open Sans', sans-serif;
+				color: $primary-color;
+				li {
+					display: inline-block;
+					font-weight: bold;
+					font-size: 16px;
+					border-right: 1px solid #ccc;
+					text-align: left;
+					padding-right: 10px;
+					padding-left: 10px;
+					&:last-child {
+						border-right: none;
+						padding-right: 0;
+					}
+					.phone-title {
+						font-weight: normal;
+						font-size: 14px;
+					}
+				}
+			}
+		}
+	}
+}

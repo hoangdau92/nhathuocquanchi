@@ -1,0 +1,252 @@
+﻿@using Core_MVC.Models
+@model Core_MVC.Models.QC_Thuoc
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Cập nhật thông tin thuốc
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-7">
+                        @using (Html.BeginForm("Edit", "QC_Thuoc", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.id, new { style = "width:50%;", @class = "form-control", @type = "hidden" })
+                            </div>
+                            <div class="form-group">
+                                <div class="control-group row">
+                                    <div class="col-lg-3">
+                                        @Html.LabelFor(model => model.ten, htmlAttributes: new { @class = "control-label" })
+                                    </div>
+                                    <div class="col-lg-9">
+                                        @Html.TextBoxFor(model => model.ten, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.ten, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="control-group row">
+                                    <div class="col-lg-3">
+                                        @Html.LabelFor(model => model.anhdaidien, htmlAttributes: new { @class = "control-label" })
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <div style="width: 100px; height: 100px; display: inline-block;">
+                                            <img id="pre_picture" style="width: 100%" src="@Url.Content(ViewBag.URLIMAGE + Html.ValueFor(m => m.anhdaidien))" alt="Ảnh đại diện" />
+                                        </div>
+                                        @Html.TextBoxFor(model => model.anhdaidien, new { @class = "form-control hidden" })
+                                        <input type="button" value="Chọn ảnh" onclick="chooseImg()" class="btn btn-default" />
+                                        <button class="btn btn-danger" title="Xóa file" onclick="removeFile()" type="button"><i class="fas fa-minus"></i></button>
+                                        @Html.ValidationMessageFor(model => model.anhdaidien, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="control-group row">
+                                    <div class="col-lg-3">
+                                        @Html.LabelFor(model => model.idloaithuoc, htmlAttributes: new { @class = "control-label" })
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <select id="@Html.IdFor(model => model.idloaithuoc)" name="@Html.IdFor(model => model.idloaithuoc)" class="form-control">
+                                            <option value="">Chọn loại thuốc</option>
+                                            @if (TempData["loaithuoc"] != null)
+                                            {
+                                                List<QC_LoaiThuoc> lData = (List<QC_LoaiThuoc>)TempData["loaithuoc"];
+                                                for (int i = 0; i < lData.Count; i++)
+                                                {
+                                                    if (lData[i].id == Model.idloaithuoc)
+                                                    {
+                                                        <option value="@lData[i].id" selected>@lData[i].ten</option>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@lData[i].id">@lData[i].ten</option>
+                                                    }
+                                                }
+                                            }
+                                        </select>
+                                        @Html.ValidationMessageFor(model => model.idloaithuoc, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="control-group row">
+                                    <div class="col-lg-3">
+                                        @Html.LabelFor(model => model.hansudung, htmlAttributes: new { @class = "control-label" })
+                                    </div>
+                                    <div class="col-lg-9">
+                                        @Html.TextBoxFor(model => model.hansudung, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.hansudung, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="control-group row">
+                                    <div class="col-lg-3">
+                                        @Html.LabelFor(model => model.iddonvi, htmlAttributes: new { @class = "control-label" })
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <select id="@Html.IdFor(model => model.iddonvi)" name="@Html.IdFor(model => model.iddonvi)" class="form-control">
+                                            <option value="">Chọn đơn vị</option>
+                                            @if (TempData["loaidonvitinh"] != null)
+                                            {
+                                                List<QC_DonViThuoc> lData = (List<QC_DonViThuoc>)TempData["loaidonvitinh"];
+                                                for (int i = 0; i < lData.Count; i++)
+                                                {
+                                                    if (lData[i].id == Model.iddonvi)
+                                                    {
+                                                        <option value="@lData[i].id" selected>@lData[i].ten</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@lData[i].id">@lData[i].ten</option>
+                                                    }
+                                                }
+                                            }
+                                        </select>
+                                        @Html.ValidationMessageFor(model => model.iddonvi, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="control-group row">
+                                    <div class="col-lg-3">
+                                        @Html.LabelFor(model => model.iddonvi, htmlAttributes: new { @class = "control-label" })
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <select id="@Html.IdFor(model => model.idbiendonggia)" name="@Html.IdFor(model => model.idbiendonggia)" class="form-control">
+                                            @if (TempData["loaibiendonggia"] != null)
+                                            {
+                                                List<QC_BienDongGia> lData = (List<QC_BienDongGia>)TempData["loaibiendonggia"];
+                                                for (int i = 0; i < lData.Count; i++)
+                                                {
+                                                    if (lData[i].id == Model.idbiendonggia)
+                                                    {
+                                                        <option value="@lData[i].id" selected>@lData[i].mota</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@lData[i].id">@lData[i].mota</option>
+                                                    }
+                                                }
+                                            }
+                                        </select>
+                                        @Html.ValidationMessageFor(model => model.idbiendonggia, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="control-group row">
+                                    <div class="col-lg-3">
+                                        @Html.LabelFor(model => model.gia, htmlAttributes: new { @class = "control-label" })
+                                    </div>
+                                    <div class="col-lg-9">
+                                        @Html.TextBoxFor(model => model.gia, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.gia, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="control-group row">
+                                    <div class="col-lg-offset-3 col-lg-9">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" name="@Html.IdFor(model => model.docquyen)" value="@Html.ValueFor(m=>m.docquyen)" @(Convert.ToBoolean(Model.docquyen) == true ? "checked" : "") />
+                                                        <b>@Html.DisplayNameFor(model => model.docquyen)</b>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" name="@Html.IdFor(model => model.uudai)" value="@Html.ValueFor(m=>m.uudai)" @(Convert.ToBoolean(Model.uudai) == true ? "checked" : "") />
+                                                        <b>@Html.DisplayNameFor(model => model.uudai)</b>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" name="@Html.IdFor(model => model.sanphammoi)" value="@Html.ValueFor(m=>m.sanphammoi)" @(Convert.ToBoolean(Model.sanphammoi) == true ? "checked" : "") />
+                                                        <b>@Html.DisplayNameFor(model => model.sanphammoi)</b>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="control-group row">
+                                    <div class="col-lg-offset-3 col-lg-9">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" name="@Html.IdFor(model => model.tinhtrang)" value="@Html.ValueFor(m=>m.tinhtrang)" @(Convert.ToBoolean(Model.tinhtrang) == true ? "checked" : "") />
+                                                        <b>@Html.DisplayNameFor(model => model.tinhtrang)</b>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="control-group row">
+                                    <div class="col-lg-3">
+                                        @Html.LabelFor(model => model.mota, htmlAttributes: new { @class = "control-label" })
+                                    </div>
+                                    <div class="col-lg-9">
+                                        @Html.TextAreaFor(model => model.mota, new { @class = "form-control", @rows = "8" })
+                                        @Html.ValidationMessageFor(model => model.mota, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-offset-3 col-lg-9">
+                                    <input type="submit" value="Cập nhật" class="btn btn-primary" />
+                                    <a class="btn btn-default" href="@Url.Content("~/Admin/QC_Thuoc")">Quay lại</a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section jsFooter{
+    <script type="text/javascript">
+        function chooseImg() {
+            // You can use the "CKFinder" class to render CKFinder in a page:
+            var finder = new CKFinder();
+            finder.basePath = '~/ckfinder';	// The path for the installation of CKFinder (default = "/ckfinder/").
+            finder.selectActionFunction = SetFileField1;
+            finder.popup();
+        }
+        // This is a sample function which is called when a file is selected in CKFinder.
+        function SetFileField1(fileUrl) {
+            jQuery('#@Html.IdFor(model => model.anhdaidien)').val(fileUrl);
+            jQuery('#pre_picture').attr('src', SiteUrlImgCKFinder + fileUrl);
+        }
+
+
+        function removeFile() {
+            jQuery('#pre_picture').attr('src', '');
+            jQuery('#hinhdaidien').val('');
+        }
+    </script>
+}

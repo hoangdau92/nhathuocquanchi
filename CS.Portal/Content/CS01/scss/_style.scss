@@ -1,0 +1,269 @@
+.box-news {
+	border-radius: 0;
+	border-color: $box-news-color;
+	min-height: 200px;
+	.panel-heading {
+		border-radius: 0;
+		padding: 5px 15px;
+		background-color: $box-news-color;
+		font-weight: 550;
+		color: #fff;
+		a {
+			color: #fff;
+			&:hover {
+				font-style: italic;
+			}
+		}
+	}
+	.panel-body {
+		p, a {
+			text-align: justify;	
+		}
+		padding: 5px;
+		.feature-news {
+			.title {
+				font-weight: bold;
+				margin-bottom: 0;
+			}
+		}
+		ul {
+			padding-left: 15px;
+			li {
+				//list-style: none;
+				font-weight: normal;
+				// a:before {
+				// 	content: '\⎆ ';
+				// }
+			}
+		}
+	}
+	img {
+		width: 100%;
+	}
+	.news-item {
+		padding-bottom: 20px;
+	}
+	table {
+		tr td {
+			vertical-align: middle;
+		}
+	}
+}
+
+.box-newsdetail {
+	border-radius: 0;
+	border-color: $box-news-color;
+	.panel-heading {
+		border-radius: 0;
+		padding: 5px 15px;
+		background-color: #fff;
+		font-weight: 550;
+		color: #000;
+		border-bottom: none;
+    	padding-top: 15px;
+    	span {
+    		padding: 5px 10px;
+    		background: #d9d9d9;
+    	}	
+	}
+	h4 {
+		margin-bottom: 0;
+		font-weight: bold;
+		font-size: 20px;
+	}
+	.new-createdate {
+		float: right;
+		font-weight: normal;
+		font-size: 11px;
+		color: #b3b3b3;
+	}
+	.new-excerpt {
+		margin-top: 10px;
+		font-weight: 550;
+		font-style: italic;
+	}
+	h5 {
+		font-weight: bold;
+	}
+	ul {
+		padding-left: 15px;
+	}
+	img {
+		width: 100%;
+	}
+	p {
+		text-align: justify;
+	}
+}
+
+.box-lichhop {
+	border-radius: 0;
+	border-color: $box-news-color;
+	min-height: 200px;
+	.panel-heading {
+		border-radius: 0;
+		padding: 5px 15px;
+		background-color: $box-news-color;
+		font-weight: 550;
+		color: #fff;
+	}
+	table tbody tr{
+		td {
+			vertical-align: middle;
+		}
+	}
+}
+
+.link-item {
+	border: 4px solid #f2f2f2;
+	margin-bottom: 10px;
+}
+
+.pagination>.active>a {
+	background: #0250b2;
+}
+
+#example3 {//ImagesGallery
+	.sp-slides-container {
+		.sp-slide {
+			p {
+				transform: none !important;
+				width: auto !important;
+				white-space: unset !important;
+				margin-bottom: 10px !important;
+			}
+		}
+	}
+}
+hr {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.albumkhac {
+	img {
+		width: 100%;
+	}
+	p {
+		font-size: 11px;
+		font-weight: bold;
+	}
+	h5 {
+		padding-left: 15px;
+	}
+	a:hover {
+		img {
+			opacity: 0.5;
+		}
+	}
+}
+
+.thongketruycap {
+	padding-top: 10px;
+	.songdangtruycap {
+		color: #42b72a;
+	}
+	.songtruycaphomnay {
+		color: #cc3300;
+	}
+	.sothanhvien {
+
+	}
+	.tongsotruycap {
+		color: #4d4dff;
+	}
+}
+
+.box-slider {
+	border-radius: 0;
+	border-color: $box-news-color;
+	min-height: 200px;
+	.panel-heading {
+		border-radius: 0;
+		padding: 5px 15px;
+		background-color: $box-news-color;
+		font-weight: 550;
+		color: #fff;
+	}
+	.panel-body {
+		padding: 5px;
+	}
+	#example5 {
+		.sp-caption-container {
+		    position: absolute;
+		    bottom: 5px;
+		    padding-right: 5px;
+		    padding-left: 5px;
+		    background: rgba(255, 255, 255, 0.7);
+		    color: rgb(0, 0, 0);
+		    margin-left: 5px;
+		}
+		.sp-selected-thumbnail {
+			&:before {
+				border-left-color: $arrow-sliderpro;
+			}
+			&:after {
+				border-right-color: $arrow-sliderpro;	
+			}
+		}
+		.sp-thumbnail-title {
+			font-size: 13px;
+			text-transform: none;
+		}
+	}
+}
+
+ul.pagination {
+	li {
+		cursor: pointer;
+	}
+}
+
+.pagingNV {
+	ul {
+		margin: 0;
+		margin-top: -15px;
+	}
+}
+
+.box-thongbao {
+	ul {
+		padding-left: 0px !important;
+		li {
+			list-style: none;
+			border-bottom: 1px dashed #808080;
+    		margin-bottom: 5px;
+    		&:last-child {
+    			border: none;
+    		}
+		}
+	}
+}
+
+@include device {
+	#example5 {
+		.sp-caption-container {
+		    bottom: 50px !important;
+		}
+		.sp-selected-thumbnail {
+			&:before {
+				border-color: transparent !important;
+				border-bottom-color: $arrow-sliderpro !important;
+			}
+			&:after {
+				border-color: transparent !important;
+				border-bottom-color: $arrow-sliderpro !important;
+			}
+		}
+	}
+}
+
+@include xs {
+	#example5 {
+		.sp-mask.sp-grab {
+			height: 200px !important;
+			.sp-slide {
+				height: 200px !important;
+			}
+		}
+	}
+}

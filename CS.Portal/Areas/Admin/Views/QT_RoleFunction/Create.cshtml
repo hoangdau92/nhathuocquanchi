@@ -1,0 +1,81 @@
+﻿@model CS.Portal.Core.EF.CSF_RoleFunction
+@using CS.Portal.Core.EF
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+
+@section header{
+    Phân quyền
+}
+<div class="row">
+    <div class="col-lg-3">
+        <div class="panel panel-default">
+            <div class="panel-heading text-right">
+                <label class="pull-left">Nhóm người dùng</label>
+                <button class="btn btn-info" style="visibility: hidden">Lưu</button>
+                <input type="hidden" value="0" id="RoleID" />
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered" id="tbl-role"></table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <div class="panel panel-default">
+            <div class="panel-heading text-right">
+                <label class="pull-left">Phân quyền chức năng</label>
+                <button class="btn btn-info" onclick="saveFunc()">Lưu</button>
+            </div>
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-xs-2">
+                            <label class="control-label">Module</label>
+                        </div>
+                        <div class="col-xs-10">
+                            <select class="form-control" id="lmodule"></select>
+                        </div>
+                    </div>
+                    <div class="form-group" id="jsTreeFuncP" style="max-height: 608px; overflow-y: auto;">
+                        <div class="col-xs-12">
+                            <div id="jsTreeFunc"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="panel panel-default">
+            <div class="panel-heading text-right">
+                <label class="pull-left">Phân quyền trang</label>
+                <button class="btn btn-info" onclick="savePage()">Lưu</button>
+            </div>
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-xs-2">
+                            <label class="control-label">Trang</label>
+                        </div>
+                        <div class="col-xs-10">
+                            <select class="form-control" id="lpage">
+                                <option value="false">Khai thác</option>
+                                <option value="true">Quản trị</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" id="jsTreeContentP" style="max-height: 608px; overflow-y: auto;">
+                        <div class="col-xs-12">
+                            <div id="jsTreeContent"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section jsFooter{
+    <script src="@Url.Content("~/areas/admin/jscontroller/QT_RoleFunctions.js")"></script>
+}

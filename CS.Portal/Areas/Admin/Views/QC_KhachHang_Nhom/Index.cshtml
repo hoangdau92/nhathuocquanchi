@@ -1,0 +1,95 @@
+﻿@{
+    ViewBag.Title = "Gán khách hàng vào nhóm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+
+@section header{
+    Gán khách hàng vào nhóm
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Gán khách hàng vào nhóm
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="col-lg-12 form-group">
+                            <strong>Khách hàng</strong>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="row form-group">
+                                <div class="col-lg-1">
+                                    <button id="checkAllNotInGroup" title="Chọn tất cả" class="btn btn-active CSFtooltip"><span class="glyphicon glyphicon-ok"></span></button>
+                                </div>
+                                <div class="col-lg-offset-1 col-lg-6">
+                                    <input id="ipSearch" type="text" placeholder="Tìm kiếm..." class="form-control" name="name" />
+                                    <input id="ipRoleID" type="hidden" name="RoleID" value="0" />
+                                </div>
+                                <div class="col-lg-4">
+                                    <button onclick="clearForm()" type="submit" title="Hủy" class="btn btn-active CSFtooltip"><span class="glyphicon glyphicon-remove"></span></button>
+                                    <button id="btnTimKiem" onclick="searchForm()" title="Tìm kiếm" class="btn btn-success CSFtooltip"><span class="glyphicon glyphicon-search"></span></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+
+                        </div>
+                        <div class="divScroll" id="divUsersNotInGroup">
+                            @{
+                                System.Collections.Generic.List<Core_MVC.Models.QC_KhachHang> lstkhachhang = (System.Collections.Generic.List<Core_MVC.Models.QC_KhachHang>)TempData["khachhang"];
+
+                            }
+                            @if (lstkhachhang != null && lstkhachhang.Count > 0)
+                            {
+                                for (int i = 0; i < lstkhachhang.Count; i++)
+                                {
+                                    <div class="checkbox userGroup">
+                                        <label title="@lstkhachhang[i].tendaydu" class="CSFtooltip">
+                                            <input id="chkUser_@lstkhachhang[i].id" value="@lstkhachhang[i].id" name="chkUsersNotInGroup" type="checkbox">@lstkhachhang[i].tendaydu
+                                        </label>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="col-lg-1" style="height:400px;padding-top:15% !important;text-align:center;">
+                        <button id="btnNext1" title="Gán người dùng" onclick="setUserInGroup()" class="btn btn-primary"><span class="glyphicon glyphicon-chevron-right"></span></button><br /><br />
+                        <button id="btnPrev1" title="Gỡ người dùng" onclick="setUserOutGroup()" class="btn btn-primary"><span class="glyphicon glyphicon-chevron-left"></span></button><br /><br />
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="col-lg-12 form-group">
+                            <strong>Khách hàng đã được gán vào nhóm</strong>
+                        </div>
+                        <div class="col-lg-1">
+                            <button id="checkAllInGroup" title="Chọn tất cả" class="btn btn-active"><span class="glyphicon glyphicon-ok"></span></button>
+                        </div>
+                        <div class=" col-lg-offset-1 col-lg-9">
+                            <div class="form-group">
+                                @{
+                                    System.Collections.Generic.List<Core_MVC.Models.QC_NhomKhachHang> lstkhachhanh_nhom = (System.Collections.Generic.List<Core_MVC.Models.QC_NhomKhachHang>)TempData["khachhang_nhom"];
+                                    TempData.Keep("khachhang_nhom");
+                                }
+                                <select id="ddlRoles" name="ddlRoles" class="form-control">
+                                    <option id="ddl_0" value="0" selected="selected">-- Chọn nhóm --</option>
+                                    @if (lstkhachhanh_nhom != null && lstkhachhanh_nhom.Count > 0)
+                                    {
+                                        for (int i = 0; i < lstkhachhanh_nhom.Count; i++)
+                                        {
+                                            <option id="ddl_@lstkhachhanh_nhom[i].id" value="@lstkhachhanh_nhom[i].id">@lstkhachhanh_nhom[i].ten</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="divScroll" id="divUsersInGroup"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section jsFooter{
+    <script src="@Url.Content("~/areas/admin/jscontroller/QC_KhachHang_Nhom.js")"></script>
+}

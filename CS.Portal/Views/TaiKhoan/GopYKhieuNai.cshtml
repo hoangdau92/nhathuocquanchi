@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "Góp ý khiếu nại";
+    Layout = "~/Views/Shared/_Layout_quanchi.cshtml";
+}
+
+@model Core_MVC.Models.QC_Gopy_KhieuNai
+<div class="container block-breadcrumb">
+    <div class="breadcrumbs">
+        <span><a href="~/Home/Index">Home</a></span><i class="fa fa-angle-double-right" aria-hidden="true"></i><span>Góp ý và khiếu nại</span>
+    </div>
+</div>
+@if (TempData["AlertMessage"] != null)
+{
+    <div id="AlertBox" class="alert @TempData["AlertType"] hide">
+        @TempData["AlertMessage"]
+    </div>
+}
+<div class="container block-khdangnhap">
+    @using (Html.BeginForm("GopYKhieuNai", "TaiKhoan", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <h4>
+            <strong>
+                Gửi Khiếu nại Dịch vụ tới Giá Thuốc Hapu
+            </strong>
+        </h4>
+        <p>
+            Giá Thuốc Hapu cam kết giải quyết khiếu nại của bạn trong vòng 48h.
+            Rất xin lỗi nếu trong quá trình phục vụ, những sai sót của chúng tôi ảnh hưởng đến thời gian của bạn
+        </p>
+        <div class="form-group">
+            <div class="control-group row">
+                <div class="col-lg-12">
+                    @Html.TextAreaFor(model => model.noidungkhieunai, new { @class = "form-control", placeholder = "Chia sẻ khiếu nạn của bạn với chúng tôi tại đây...", cols = "50", rows = "6" })
+                    @Html.ValidationMessageFor(model => model.noidungkhieunai, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div>
+
+        </div>
+        <h4>
+            <strong>
+                Giúp Giá Thuốc Hapu phục vụ bạn tốt hơn ?
+            </strong>
+        </h4>
+        <p>
+            Giá Thuốc Hapu vẫn luôn nỗ lực từng ngày để nâng cao chất lượng dịch vụ, giúp khách hàng đặt hàng, nhận hàng nhanh chóng và dễ dàng hơn.
+            Chúng tôi mong nhận được sự góp ý của bạn để chúng ta cùng xây dựng một cộng đồng kinh doanh Dược phẩm lớn mạnh và phát triển bền vững trong tương lai.
+        </p>
+        <div class="form-group">
+            <div class="control-group row">
+                <div class="col-lg-12">
+                    @Html.TextAreaFor(model => model.noidunggopy, new { @class = "form-control", placeholder = "Chia sẻ góp ý của bạn với chúng tôi tại đây...", cols = "50", rows = "6" })
+                    @Html.ValidationMessageFor(model => model.noidunggopy, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <div>
+                        <input type="submit" value="Gửi phẩn hồi" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+</div>

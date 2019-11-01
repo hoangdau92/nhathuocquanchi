@@ -1,0 +1,122 @@
+﻿@model Core_MVC.Models.QC_DoiTacTieuBieu
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+
+
+@section header{
+    Thêm mới đối tác tiêu biểu
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Nhập thông tin
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("Create", "QC_DoiTacTieuBieu", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div class="form-group">
+                                <div class="control-group row">
+                                    <div class="col-lg-3">
+                                        @Html.LabelFor(model => model.ten, htmlAttributes: new { @class = "control-label" })
+                                    </div>
+                                    <div class="col-lg-9">
+                                        @Html.TextBoxFor(model => model.ten, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.ten, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="control-group row">
+                                    <div class="col-lg-3">
+                                        @Html.LabelFor(model => model.mota, htmlAttributes: new { @class = "control-label" })
+                                    </div>
+                                    <div class="col-lg-9">
+                                        @Html.TextBoxFor(model => model.mota, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.mota, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            @* Image input view *@
+                            <div class="form-group">
+                                <div class="control-group row">
+                                    <div class="col-lg-3">
+                                        @Html.LabelFor(model => model.anhdaidien, htmlAttributes: new { @class = "control-label" })
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <div style="width: 100px; height: 100px; display: inline-block;">
+                                            <img id="pre_picture" style="width: 100%" src="#" alt="Ảnh đại diện" />
+                                        </div>
+
+                                        <input id="@Html.IdFor(model => model.anhdaidien)" name="@Html.IdFor(model => model.anhdaidien)" type="hidden" class="input-block-level" />
+                                        <input type="button" value="Chọn ảnh" onclick="chooseImg()" class="btn btn-default" />
+                                        <button class="btn btn-danger" title="Xóa file" onclick="removeFile()" type="button"><i class="fas fa-minus"></i></button>
+                                        @Html.ValidationMessageFor(model => model.anhdaidien, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="control-group row">
+                                    <div class="col-lg-3">
+                                        @Html.LabelFor(model => model.thutu, htmlAttributes: new { @class = "control-label" })
+                                    </div>
+                                    <div class="col-lg-9">
+                                        @Html.TextBoxFor(model => model.thutu, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.thutu, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <input type="submit" value="Lưu" class="btn btn-primary" />
+                                    <a class="btn btn-default" href="@Url.Content("~/Admin/QC_DoiTacTieuBieu/Index")">Quay lại</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section jsFooter{
+    <script src="@Url.Content("~/Scripts/JSBase/jqBootstrapValidation.js")"></script>
+    <script>jQuery(function () { jQuery("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); });</script>
+    <script type="text/javascript">
+        jQuery(function () {
+            jQuery('input[type="checkbox"]').on('click', function () {
+                jQuery(this).val(this.checked ? true : false);
+            });
+        });
+
+        function chooseImg() {
+            var finder = new CKFinder();
+            finder.basePath = '~/ckfinder';	// The path for the installation of CKFinder (default = "/ckfinder/").
+            finder.selectActionFunction = SetFileField1;
+            finder.popup();
+        }
+
+        function SetFileField1(fileUrl) {
+            document.getElementById('@Html.IdFor(model => model.anhdaidien)').value = fileUrl;
+            jQuery('#pre_picture').attr('src', SiteUrlImgCKFinder + fileUrl);
+        }
+
+        function removeFile() {
+            jQuery('#pre_picture').attr('src', '');
+            jQuery('#anhdaidien').val('');
+        }
+    </script>
+}

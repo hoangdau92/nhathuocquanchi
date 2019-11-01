@@ -1,0 +1,15 @@
+﻿@model IEnumerable<CS.Portal.Core.EF.CMS_Categories>
+@using CS.Portal.Common;
+
+<div class="block-sidebar-right block-dmtintuc">
+    <h3 class="heading">Danh mục tin tức</h3>
+    <ul class="block-body">
+        @if (Model != null && Model.Count() > 0)
+        {
+            foreach (var item in Model)
+            {
+                <li><i class="fa fa-angle-right" aria-hidden="true"></i><a href="@Url.Content("~/tin-tuc/" + Utilities.RemoveUrlMarks(item.NAME))">@item.NAME</a></li>
+            }
+        }
+    </ul>
+</div>

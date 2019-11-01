@@ -1,0 +1,86 @@
+﻿@using Core_MVC.Models
+@using CS.Portal.Common;
+@model IEnumerable<QC_Thuoc>
+@{
+    ViewBag.Title = "Thuốc";
+    Layout = "~/Views/Shared/_Layout_quanchi.cshtml";
+}
+<div class="container block-breadcrumb">
+    <div class="breadcrumbs">
+        <span>Home</span>
+        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+        <span>Sản phẩm</span>
+    </div>
+</div>
+<div class="container block-product">
+    <div class="row">
+        <div class="col-md-3 col-xs-12 ">
+            <input type="hidden" value="@ViewBag.CATE" id="_CATE" />
+            @{Html.RenderAction("LoaiThuoc", "Thuoc");}
+        </div>
+        <div class="col-md-9 col-xs-12 block-content">
+            <div class="row">
+                <div class="col-lg-4 col-md-12">
+                    <h3 class="heading">- - @ViewBag.CATENAME - -</h3>
+                </div>
+                <div class="col-lg-8 col-md-12 block-filter">
+                    @*<span class="title">Lọc: </span>*@
+                    <label class="qc-checkbox">
+                        <input type="checkbox" id="spmoi" value="false" />
+                        <span>Sản phẩm mới</span>
+                    </label>
+                    <label class="qc-checkbox">
+                        <input type="checkbox" id="spuudai" value="false" />
+                        <span>Sản phẩm ưu đãi</span>
+                    </label>
+                    <label class="qc-checkbox">
+                        <input type="checkbox" id="spdocquyen" value="false" />
+                        <span>Sản phẩm độc quyền</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="list-product" id="sanpham">
+                @if (Model != null && Model.Count() > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        <div class="item">
+                            <a href="@Url.Content("~/chi-tiet-san-pham/" + Utilities.RemoveUrlMarks(item.ten)+"-"+item.id)">
+                                <img class="img_@item.id item-image" src="@Url.Content(item.anhdaidien)" alt="hinh dai dien" />
+                            </a>
+                            <div class="item-info">
+                                <h3>
+                                    <a class="sanpham_@item.id" href="@Url.Content("~/chi-tiet-san-pham/" + Utilities.RemoveUrlMarks(item.ten)+"-"+item.id)">@item.ten</a>
+                                </h3>
+                                <p>@string.Format("{0:N0}", item.gia) đ</p>
+
+                            </div>
+                            <div class="item-button">
+                                @if (item.tinhtrang == true)
+                                {
+                                    <a href="javascript:void(0)" onclick="QUANCHI_DonHang.AddtoCart(@item.id)" title="Thêm vào giỏ hàng" class="addtocart">
+                                        <i class="fas fa-shopping-basket"></i>
+                                    </a>
+                                    <a href="javascript:void(0)" class="seemore" title="Xem các sản phẩm cùng loại">
+                                        <i class="fas fa-align-center"></i>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="javascript:void(0)" ><i class="far fa-times-circle"></i> Hết hàng</a>
+                                }
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section jsFooter{
+    <script src="@Url.Content("~/Scripts/JSController/thuoc.js")"></script>
+    <script src="@Url.Content("~/Scripts/JSController/donhang.js")"></script>
+}

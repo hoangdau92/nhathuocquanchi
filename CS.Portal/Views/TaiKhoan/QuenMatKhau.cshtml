@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Quên mật khẩu";
+    Layout = "~/Views/Shared/_Layout_quanchi.cshtml";
+}
+<div class="container block-breadcrumb">
+    <div class="breadcrumbs">
+        <span>Home</span>
+        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+        <span>Tài khoản</span>
+    </div>
+</div>
+
+<div class="container block-quenmatkhau">
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                Quên mật khẩu? Vui lòng nhập <b>tên đăng nhập </b>và <b>email đăng ký</b>.<br />
+                Bạn sẽ nhận được một liên kết tạo mật khẩu mới qua email.
+            </p>
+        </div>
+        <div class="col-md-6">
+            <p>Tên đăng nhập:</p>
+            <input type="text" id="tendangnhap" value="" placeholder="khachvanglai" class="qc-input" />
+            <br /><br />
+            <p>Địa chỉ email:</p>
+            <input type="text" id="emailxacthuc" value="" placeholder="example@email.com" class="qc-input" />
+            <p class="text-danger hidden" id="thongbao"></p>
+            <button class="btn btn-qc" onclick="QUANCHI_TaiKhoan.GuiXacThucEmail()" id="guixacnhan">Xác nhận</button>
+        </div>
+    </div>
+</div>
+
+<script src="@Url.Content("~/Scripts/JSController/taikhoan.js")"></script>

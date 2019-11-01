@@ -1,0 +1,93 @@
+﻿@model PagedList.IPagedList<CS.Portal.Core.EF.CMS_News_LayTatCa_Result>
+@using CS.Portal.Common;
+@using CS.Portal.Core.EF;
+@using CS.Portal.Core.DAO;
+@using PagedList.Mvc;
+
+<div class="panel panel-default box-news">
+    <div class="panel-heading">
+        @ViewBag.TITLE
+    </div>
+    <div class="panel-body">
+        <form action="@Url.Content(Request.Url.GetLeftPart(UriPartial.Path))" method="get" class="form-horizontal" style="margin-top: 15px;">
+            <div class="form-group">
+                <div class="col-xs-4 col-xs-offset-1">
+                    <label class="control-label">Từ khóa</label>
+                </div>
+                <div class="col-xs-6">
+                    <input type="text" name="key" class="form-control" placeholder="Tiêu đề, tóm tắt ..." value="@ViewBag.KEY" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-4 col-xs-offset-1">
+                    <label class="control-label">Thể loại</label>
+                </div>
+                <div class="col-xs-6">
+                    <select class="form-control" name="type">
+                        <option value="0">-- Chọn thể loại --</option>
+                        @if (TempData["category"] != null)
+                        {
+                            List<SubSelectBox> lData = (List<SubSelectBox>)TempData["category"];
+                            foreach (var item in lData)
+                            {
+                                if (item.id == ViewBag.TYPE)
+                                {
+                                    <option value="@item.id" selected>@item.name</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.id">@item.name</option>
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-10 col-xs-offset-1 text-center">
+                    <button id="btnTimKiem" type="submit" class="btn btn-default btn-xs" title="Tìm kiếm">Tìm kiếm <span class="glyphicon glyphicon-search"></span></button>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-xs-12">
+                <hr />
+                <label class="control-label">Danh sách kết quả</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Tiêu đề</th>
+                            <th>Thể loại</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Count() > 0)
+                        {
+                            int index = 0;
+                            foreach (var item in Model)
+                            {
+                                index++;
+                                <tr>
+                                    <td align="center">@index</td>
+                                    <td>@item.TITLE</td>
+                                    <td style="text-align: left">@item.LoaiTinTuc</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12" style="text-align: right;">
+                Tổng số: <b>@Model.TotalItemCount</b> bản ghi.
+                @Html.PagedListPager(Model, page => Url.Content(@Request.Url.GetLeftPart(UriPartial.Path) + "?page=" + page))
+            </div>
+        </div>
+    </div>
+</div>

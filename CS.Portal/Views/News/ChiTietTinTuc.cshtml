@@ -1,0 +1,68 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_quanchi.cshtml";
+}
+
+@model CS.Portal.Core.EF.CMS_News
+@using CS.Portal.Core.EF;
+@using CS.Portal.Common;
+
+<div class="container block-breadcrumb">
+    <div class="breadcrumbs">
+        <span>Home</span>
+        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+        <span>@Model.CMS_Categories.NAME</span>
+        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+        <span>@Model.TITLE</span>
+    </div>
+</div>
+
+<div class="container">
+   
+    <div class="row news-detail">
+        <div class="col-md-8 col-xs-12">
+            @if (Model != null)
+            {
+                <h3 class="news-title">@Model.TITLE</h3>
+                <div class="row ">
+                    <div class="col-md-12 news-excerpt">
+                        @Html.Raw(Model.EXCERPT)
+                    </div>
+                    <div class="col-md-12 news-content">
+                        @Html.Raw(Model.CONTENTS)
+                    </div>
+                </div>
+            }
+            @if (TempData["tinlienquan"] != null)
+            {
+                <div class="block-tinlienquan">
+                    <h3 class="heading"><span>Bài viết liên quan:</span></h3>
+                    <div class="row">
+                        @{
+                            List<CMS_News> lData = (List<CMS_News>)TempData["tinlienquan"];
+                            foreach (var item in lData)
+                            {
+                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                    <div class="item-img">
+                                        <a title="@item.TITLE" href="@Utilities.UrlContent_2(item.CMS_Categories.KEY, item.TITLE, item.ID.ToString())">
+                                            <img src="@Url.Content(@item.PICTURE)" alt="anh tin bai" />
+                                        </a>
+                                    </div>
+                                    <div class="item-title">
+                                        <a title="@item.TITLE" href="@Utilities.UrlContent_2(item.CMS_Categories.KEY, item.TITLE, item.ID.ToString())">
+                                            <h4>@item.TITLE</h4>
+                                        </a>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+                            }
+        </div>
+
+        <div class="col-md-4 col-xs-12">
+            @{Html.RenderAction("DanhMucTinTuc", "News");}
+            @{Html.RenderAction("TinNoiBat", "News");}
+        </div>
+    </div>
+</div>

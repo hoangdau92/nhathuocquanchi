@@ -1,0 +1,102 @@
+﻿@model CS.Portal.Core.EF.CSF_Users
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+
+@section header{
+    Cập nhật người dùng
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Thông tin người dùng.
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("Edit", "QT_Users", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="row">
+                        <div class="col-lg-7">
+
+                            <div class="form-group row">
+                                @Html.LabelFor(model => model.UserName, "Tên đăng nhập", htmlAttributes: new { @class = "control-label col-lg-3" })
+                                @Html.TextBoxFor(model => model.UserName, new { style = "width:70%;", @readonly = true, @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group row">
+                                @Html.LabelFor(model => model.Password, "Mật khẩu", htmlAttributes: new { @class = "control-label col-lg-3" })
+                                @Html.PasswordFor(model => model.Password, new { style = "width:70%;", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group row">
+                                @Html.LabelFor(model => model.FullName, "Tên đầy đủ", htmlAttributes: new { @class = "control-label col-lg-3" })
+                                @Html.TextBoxFor(model => model.FullName, new { style = "width:70%;", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group row">
+                                @Html.LabelFor(model => model.Address, "Địa chỉ", htmlAttributes: new { @class = "control-label col-lg-3" })
+                                @Html.TextBoxFor(model => model.Address, new { style = "width:70%;", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group row">
+                                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-lg-3" })
+                                @Html.TextBoxFor(model => model.Email, new { style = "width:70%;", @class = "form-control", @type = "email", @required = "required" })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group row">
+                                @Html.LabelFor(model => model.Mobile, htmlAttributes: new { @class = "control-label col-lg-3" })
+                                @Html.TextBoxFor(model => model.Mobile, new { style = "width:70%;", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <strong>Nhóm người dùng</strong>
+                            @{
+                    System.Collections.Generic.List<CS.Portal.Core.EF.CSF_Roles> lstRole = (System.Collections.Generic.List<CS.Portal.Core.EF.CSF_Roles>)TempData["Roles"];
+                    List<CS.Portal.Core.EF.CSF_UserRole_GetByUser_Result> lstUserRole = (List<CS.Portal.Core.EF.CSF_UserRole_GetByUser_Result>)TempData["userRole"];
+                    bool blnBreak = false;
+                            }
+                            @if (lstRole != null && lstUserRole != null)
+                            {
+                                for (int i = 0; i < lstRole.Count; i++)
+                                {
+                                    blnBreak = false;
+                                    <div class="checkbox">
+                                        <label>
+                                            @for (int k = 0; k < lstUserRole.Count; k++)
+                                            {
+                                                if (lstRole[i].ID == lstUserRole[k].RoleID)
+                                                {
+                                                    blnBreak = true;
+                                                    <input id="chkRole_@lstRole[i].ID" checked="checked" name="chkRole_" value="@lstRole[i].ID" type="checkbox"> @lstRole[i].Name
+                                                    break;
+                                                }
+                                            }
+                                            @if (!blnBreak)
+                                            {
+                                                <input id="chkRole_@lstRole[i].ID" name="chkRole_" value="@lstRole[i].ID" type="checkbox"> @lstRole[i].Name
+                                            }
+                                        </label>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <input type="submit" value="Cập nhật" class="btn btn-primary" />
+                                    <a class="btn btn-default" href="@Url.Content("~/Admin/QT_Users/Index")">Quay lại</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

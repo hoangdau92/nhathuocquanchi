@@ -1,0 +1,95 @@
+﻿@using Core_MVC.Helpers
+@using Core_MVC.Models
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>@ViewBag.Title | @HttpContext.Current.Application["tenwebsite"]</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="@Url.Content("~/favicon.ico")" type="image/x-icon">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap&subset=vietnamese" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap&subset=vietnamese" rel="stylesheet">
+    <link href="@Url.Content("~/Content/CSSBase/jquery-ui.css")" rel="stylesheet" />
+    <!-- Latest compiled and minified JavaScript -->
+    <link href="@Url.Content("~/Content/CSSBase/bootstrap.min.css")" rel="stylesheet" />
+    @*<link rel="stylesheet" href="@Url.Content("~/Content/QuanChi/css/font-awesome.css")">*@
+    <script src="https://kit.fontawesome.com/8ef1b97013.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="@Url.Content("~/Content/QuanChi/css/quanchi_style.css")">
+</head>
+<body class="goto-here">
+    <header class="container header hidden-xs">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 header-left">
+                <a class="header-logo hidden-xs" href="@Url.Content("~")">
+                    <img class="nav-logo" src="@Url.Content("~/"+HttpContext.Current.Application["logo"].ToString())" alt="logo" />
+                </a>
+                <div class="site-title">
+                    <a href="@Url.Content("~")" class="title">@HttpContext.Current.Application["tenwebsite"]</a>
+                    <span class="slogan">@HttpContext.Current.Application["slogan"]</span>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 header-right">
+                <div class="account-links">
+                    @if (Context.User.Identity.IsAuthenticated)
+                    {
+                        Html.RenderAction("HiUser", "System");
+                    }
+                    else
+                    {
+                        <a class="btn btn-qc btn-transparent" href="@Url.Content("~/tao-tai-khoan")">Đăng ký tài khoản</a>
+                        <a class="btn btn-qc" href="@Url.Content("~/tai-khoan/dangnhap")">Đăng nhập</a>
+                    }
+
+                </div>
+                <div class="phone">
+                    <span class="fa-stack fa-2x phone__icon hidden-md hidden-sm hidden-xs">
+                        <i class="fa fa-circle-thin fa-stack-2x"></i>
+                        <i class="fa fa-phone fa-stack-1x"></i>
+                    </span>
+                    <ul class="phone-numbers">
+                        <li class="phone-number hidden-sm hidden-xs"><p class="phone-title">Hotline 24/7</p>@HttpContext.Current.Application["hotline"]</li>
+                        <li class="phone-number"><p class="phone-title">Hỗ trợ đơn hàng</p>@HttpContext.Current.Application["hotline_hotro"]</li>
+                        <li class="phone-number"><p class="phone-title">Khiếu nại dịch vụ</p>@HttpContext.Current.Application["hotline_dichvu"]</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- START nav -->
+    @{Html.RenderAction("MainMenu", "System");}
+
+    <!-- END nav -->
+    @RenderBody()
+
+    @{Html.RenderAction("Footer", "System");}
+
+    <!-- jQuery -->
+    <script src="@Url.Content("~/Scripts/JSBase/jquery.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/JSBase/jquery-ui.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/JSBase/bootstrap.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/JSBase/Web.config.js")"></script>
+    @RenderSection("jsFooter", required: false)
+    @Html.RenderScripts()
+
+    @if (Context.User.Identity.IsAuthenticated)
+    {
+        <div class="qc-cart">
+            @{ int soluong = 0;}
+            @if (Session["cart"] != null)
+            {
+                List<ShoppingCart> lCart = (List<ShoppingCart>)Session["cart"];
+                soluong = lCart.Count;
+            }
+            <a href="@Url.Content("~/don-hang")">
+                <i class="fas fa-shopping-basket icon-shopping_cart"></i>
+            </a>
+                <span id='cart-count'>@soluong</span>
+        </div>
+                }
+    <link href="~/Content/CSSBase/aos.css" rel="stylesheet" />
+    <script src="~/Scripts/JSBase/aos.js"></script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+@section header{
+    Gán người dùng vào nhóm
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Gán người dùng vào nhóm
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="col-lg-12 form-group">
+                            <strong>Người dùng hệ thống</strong>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="row form-group">
+                                <div class="col-lg-1">
+                                    <button id="checkAllNotInGroup" title="Chọn tất cả" class="btn btn-active CSFtooltip"><span class="glyphicon glyphicon-ok"></span></button>
+                                </div>
+                                <div class="col-lg-offset-1 col-lg-7">
+                                    <input id="ipSearch" type="text" placeholder="Tìm kiếm..." class="form-control" name="name" />
+                                    <input id="ipRoleID" type="hidden" name="RoleID" value="0" />
+                                </div>
+                                <div class="col-lg-3">
+                                    <button onclick="clearForm()" type="submit" title="Hủy" class="btn btn-active CSFtooltip"><span class="glyphicon glyphicon-remove"></span></button>
+                                    <button id="btnTimKiem" onclick="searchForm()" title="Tìm kiếm" class="btn btn-success CSFtooltip"><span class="glyphicon glyphicon-search"></span></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+
+                        </div>
+                        <div class="divScroll" id="divUsersNotInGroup">
+                            @{
+                                System.Collections.Generic.List<CS.Portal.Core.EF.CSF_Users> lstUsers = (System.Collections.Generic.List<CS.Portal.Core.EF.CSF_Users>)TempData["Users"];
+
+                            }
+                            @if (lstUsers != null && lstUsers.Count > 0)
+                            {
+                                for (int i = 0; i < lstUsers.Count; i++)
+                                {
+                                    <div class="checkbox userGroup">
+                                        <label title="@lstUsers[i].UserName" class="CSFtooltip">
+                                            <input id="chkUser_@lstUsers[i].ID" value="@lstUsers[i].ID" name="chkUsersNotInGroup" type="checkbox">@lstUsers[i].FullName
+                                        </label>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="col-lg-1" style="height:400px;padding-top:15% !important;text-align:center;">
+                        <button id="btnNext1" title="Gán người dùng" onclick="setUserInGroup()" class="btn btn-primary"><span class="glyphicon glyphicon-chevron-right"></span></button><br /><br />
+                        <button id="btnPrev1" title="Gỡ người dùng" onclick="setUserOutGroup()" class="btn btn-primary"><span class="glyphicon glyphicon-chevron-left"></span></button><br /><br />
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="col-lg-12 form-group">
+                            <strong>Người dùng đã được gán vào nhóm</strong>
+                        </div>
+                        <div class="col-lg-1">
+                            <button id="checkAllInGroup" title="Chọn tất cả" class="btn btn-active"><span class="glyphicon glyphicon-ok"></span></button>
+                        </div>
+                        <div class=" col-lg-offset-1 col-lg-10">
+                            <div class="form-group">
+                                @{
+                                    System.Collections.Generic.List<CS.Portal.Core.EF.CSF_Roles> lstRoles = (System.Collections.Generic.List<CS.Portal.Core.EF.CSF_Roles>)TempData["Roles"];
+                                    TempData.Keep("Roles");
+                                }
+                                <select id="ddlRoles" name="ddlRoles" class="form-control">
+                                    <option id="ddl_0" value="0" selected="selected">-- Chọn nhóm --</option>
+                                    @if (lstRoles != null && lstRoles.Count > 0)
+                                    {
+                                        for (int i = 0; i < lstRoles.Count; i++)
+                                        {
+                                            <option id="ddl_@lstRoles[i].ID" value="@lstRoles[i].ID">@lstRoles[i].Name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="divScroll" id="divUsersInGroup"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section jsFooter{
+    <script src="@Url.Content("~/areas/admin/jscontroller/QT_UserRole.js")"></script>
+}

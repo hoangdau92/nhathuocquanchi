@@ -1,0 +1,27 @@
+body {
+	background: #f2f2f2;
+	ul {
+		margin: 0;
+		padding: 0;
+	}
+	a {
+		color: #000;
+		&:hover {
+			text-decoration: none;
+		}
+	}
+	hr {
+		border-top: 1px solid #d9d9d9;
+	}
+	table {
+		thead th {
+			text-align: center;
+		}
+	}
+	img {
+		width: 100%;
+	}
+	.container.content {
+	    min-height: 600px;
+	}
+}

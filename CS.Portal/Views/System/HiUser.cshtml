@@ -1,0 +1,14 @@
+﻿
+@using Core_MVC.Models
+@model QC_KhachHang
+
+@if (Model != null)
+{
+    <a href="@Url.Content("~/tai-khoan")" class="hi-user" title="Xem thông tin tài khoản" id="khdangnhap">Xin chào: @Model.tendaydu</a>
+    <a class="btn btn-qc" href="@Url.Content("~/Login/Logout")">Đăng xuất</a>
+}
+else if (Context.User.Identity.IsAuthenticated)
+{
+    <a href="@Url.Content("~/admin/qt_home")" class="hi-user" title="Trang quản trị">Xin chào: @Context.User.Identity.Name</a>
+    <a class="btn btn-qc" href="@Url.Content("~/Login/Logout")">Đăng xuất</a>
+}

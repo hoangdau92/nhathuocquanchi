@@ -1,0 +1,223 @@
+﻿@model Core_MVC.Models.CSF_ThietLapWebsite
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Thiết lập website
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-7">
+                        @using (Html.BeginForm("Index", "CSF_ThietLapWebsite", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a data-toggle="tab" href="#home">Thông tin chính</a></li>
+                                <li><a data-toggle="tab" href="#menu1">Thông tin khác</a></li>
+                            </ul>
+                            <div class="tab-content thietlapwebsite">
+                                <div id="home" class="tab-pane fade in active">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <div class="control-group row">
+                                                    <div class="col-lg-3">
+                                                        @Html.LabelFor(model => model.tenwebsite, htmlAttributes: new { @class = "control-label" })
+                                                    </div>
+                                                    <div class="col-lg-9">
+                                                        @Html.TextBoxFor(model => model.tenwebsite, new { @class = "form-control" })
+                                                        @Html.ValidationMessageFor(model => model.tenwebsite, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="control-group row">
+                                                    <div class="col-lg-3">
+                                                        @Html.LabelFor(model => model.logo, htmlAttributes: new { @class = "control-label" })
+                                                    </div>
+                                                    <div class="col-lg-9">
+                                                        <div style="width: 100px; height: 100px; display: inline-block;">
+                                                            <img id="pre_picture" style="width: 100%" src="@Url.Content(ViewBag.URLIMAGE + Html.ValueFor(m => m.logo))" alt="Logo" />
+                                                        </div>
+                                                        @Html.TextBoxFor(model => model.logo, new { @class = "form-control hidden" })
+                                                        <input type="button" value="Chọn ảnh" onclick="chooseImg()" class="btn btn-default" />
+                                                        <button class="btn btn-danger" title="Xóa file" onclick="removeFile()" type="button"><i class="fas fa-minus"></i></button>
+                                                        @Html.ValidationMessageFor(model => model.logo, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            @*<div class="form-group">
+                                                <div class="control-group row">
+                                                    <div class="col-lg-3">
+                                                        @Html.LabelFor(model => model.hienthi_logo, htmlAttributes: new { @class = "control-label" })
+                                                    </div>
+                                                    <div class="col-lg-9">
+                                                        <select class="form-control" name="hienlogo" id="hienlogo">
+                                                            <option value="false" @(Model.hienthi_logo == false ? "selected" : "")>Tên website</option>
+                                                            <option value="true" @(Model.hienthi_logo == true ? "selected" : "")>Logo</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>*@
+
+                                            <div class="form-group">
+                                                <div class="control-group row">
+                                                    <div class="col-lg-3">
+                                                        @Html.LabelFor(model => model.hotline, htmlAttributes: new { @class = "control-label" })
+                                                    </div>
+                                                    <div class="col-lg-9">
+                                                        @Html.TextBoxFor(model => model.hotline, new { @class = "form-control" })
+                                                        @Html.ValidationMessageFor(model => model.hotline, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="control-group row">
+                                                    <div class="col-lg-3">
+                                                        @Html.LabelFor(model => model.hotline_dichvu, htmlAttributes: new { @class = "control-label" })
+                                                    </div>
+                                                    <div class="col-lg-9">
+                                                        @Html.TextBoxFor(model => model.hotline_dichvu, new { @class = "form-control" })
+                                                        @Html.ValidationMessageFor(model => model.hotline_dichvu, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="control-group row">
+                                                    <div class="col-lg-3">
+                                                        @Html.LabelFor(model => model.hotline_hotro, htmlAttributes: new { @class = "control-label" })
+                                                    </div>
+                                                    <div class="col-lg-9">
+                                                        @Html.TextBoxFor(model => model.hotline_hotro, new { @class = "form-control" })
+                                                        @Html.ValidationMessageFor(model => model.hotline_hotro, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div id="menu1" class="tab-pane fade">
+                                    <div class="form-group">
+                                        <div class="control-group row">
+                                            <div class="col-lg-3">
+                                                @Html.LabelFor(model => model.tencongty, htmlAttributes: new { @class = "control-label" })
+                                            </div>
+                                            <div class="col-lg-9">
+                                                @Html.TextBoxFor(model => model.tencongty, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.tencongty, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="control-group row">
+                                            <div class="col-lg-3">
+                                                @Html.LabelFor(model => model.slogan, htmlAttributes: new { @class = "control-label" })
+                                            </div>
+                                            <div class="col-lg-9">
+                                                @Html.TextBoxFor(model => model.slogan, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.slogan, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="control-group row">
+                                            <div class="col-lg-3">
+                                                @Html.LabelFor(model => model.diachi, htmlAttributes: new { @class = "control-label" })
+                                            </div>
+                                            <div class="col-lg-9">
+                                                @Html.TextBoxFor(model => model.diachi, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.diachi, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="control-group row">
+                                            <div class="col-lg-3">
+                                                @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label" })
+                                            </div>
+                                            <div class="col-lg-9">
+                                                @Html.TextBoxFor(model => model.email, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="control-group row">
+                                            <div class="col-lg-3">
+                                                @Html.LabelFor(model => model.facebook, htmlAttributes: new { @class = "control-label" })
+                                            </div>
+                                            <div class="col-lg-9">
+                                                @Html.TextBoxFor(model => model.facebook, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.facebook, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="control-group row">
+                                            <div class="col-lg-3">
+                                                @Html.LabelFor(model => model.thongtinbosung, htmlAttributes: new { @class = "control-label" })
+                                            </div>
+                                            <div class="col-lg-9">
+                                                @Html.TextAreaFor(model => model.thongtinbosung, new { @class = "form-control", @rows = "10" })
+                                                @Html.ValidationMessageFor(model => model.thongtinbosung, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.id, new { style = "width:50%;", @class = "form-control", @type = "hidden" })
+                            </div>
+
+
+
+
+                            <div class="form-group">
+                                <div class="col-lg-offset-3 col-lg-9">
+                                    <input type="submit" value="Cập nhật" class="btn btn-primary" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section jsFooter{
+    <script type="text/javascript">
+        function chooseImg() {
+            // You can use the "CKFinder" class to render CKFinder in a page:
+            var finder = new CKFinder();
+            finder.basePath = '~/ckfinder';	// The path for the installation of CKFinder (default = "/ckfinder/").
+            finder.selectActionFunction = SetFileField1;
+            finder.popup();
+        }
+        // This is a sample function which is called when a file is selected in CKFinder.
+        function SetFileField1(fileUrl) {
+            jQuery('#@Html.IdFor(model => model.logo)').val(fileUrl);
+            jQuery('#pre_picture').attr('src', SiteUrlImgCKFinder + fileUrl);
+        }
+
+
+        function removeFile() {
+            jQuery('#pre_picture').attr('src', '');
+            jQuery('#logo').val('');
+        }
+    </script>
+}

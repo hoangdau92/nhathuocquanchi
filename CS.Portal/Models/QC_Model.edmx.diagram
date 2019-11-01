@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="24fdea4016274c1981d0b8fdd1bd7d07" Name="Diagram1" ZoomLevel="82">
+        <EntityTypeShape EntityType="quanchiModel.QC_BienDongGia" Width="1.5" PointX="0.5" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="quanchiModel.QC_DoiTacTieuBieu" Width="1.5" PointX="7.25" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="quanchiModel.QC_DoiTuong_MaGiamGia" Width="1.5" PointX="9.125" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="quanchiModel.QC_DonViThuoc" Width="1.5" PointX="0.5" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="quanchiModel.QC_Gopy_KhieuNai" Width="1.5" PointX="2.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="quanchiModel.QC_KhachHang" Width="1.5" PointX="2.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="quanchiModel.QC_LoaiThuoc" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="quanchiModel.QC_NhomKhachHang" Width="1.5" PointX="0.5" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="quanchiModel.QC_PhuongThucThanhToan" Width="1.5" PointX="5.125" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="quanchiModel.QC_Slider" Width="1.5" PointX="9.25" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="quanchiModel.QC_Thuoc" Width="1.5" PointX="2.75" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="quanchiModel.QC_Thuoc_DonHang" Width="1.5" PointX="4.75" PointY="0.5" IsExpanded="true" />
+        <AssociationConnector Association="quanchiModel.FK_QC_Thuoc_QC_BienDongGia" ManuallyRouted="false" />
+        <AssociationConnector Association="quanchiModel.FK_QC_Thuoc_QC_DonVi" ManuallyRouted="false" />
+        <AssociationConnector Association="quanchiModel.FK_QC_Gopy_KhieuNai_QC_KhachHang" ManuallyRouted="false" />
+        <AssociationConnector Association="quanchiModel.FK_QC_Thuoc_QC_LoaiThuoc" ManuallyRouted="false" />
+        <AssociationConnector Association="quanchiModel.FK_QC_Thuoc_DonHang_QC_Thuoc" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="quanchiModel.CSF_ThietLapWebsite" Width="1.5" PointX="7.25" PointY="7.375" />
+        <EntityTypeShape EntityType="quanchiModel.QC_KhachHang_Nhom" Width="1.5" PointX="0.5" PointY="7" />
+        <AssociationConnector Association="quanchiModel.FK_QC_KhachHang_Nhom_QC_KhachHang" />
+        <AssociationConnector Association="quanchiModel.FK_QC_KhachHang_Nhom_QC_NhomKhachHang" />
+        <EntityTypeShape EntityType="quanchiModel.QC_YKienKhachHang" Width="1.5" PointX="11.5" PointY="0.5" />
+        <EntityTypeShape EntityType="quanchiModel.QC_KieuDoiTuong" Width="1.5" PointX="11.5" PointY="5.625" />
+        <EntityTypeShape EntityType="quanchiModel.QC_LoaiGiamGia" Width="1.5" PointX="11.5" PointY="3.125" />
+        <EntityTypeShape EntityType="quanchiModel.QC_MaGiamGia" Width="1.5" PointX="9.5" PointY="3.5" />
+        <AssociationConnector Association="quanchiModel.FK_QC_DoiTuong_MaGiamGia_QC_MaGiamGia" />
+        <AssociationConnector Association="quanchiModel.FK_QC_MaGiamGia_QC_KieuDoiTuong" />
+        <AssociationConnector Association="quanchiModel.FK_QC_MaGiamGia_QC_LoaiGiamGia" />
+        <EntityTypeShape EntityType="quanchiModel.QC_DonHang" Width="1.5" PointX="5.5" PointY="3.5" />
+        <AssociationConnector Association="quanchiModel.FK_QC_DonHang_QC_KhachHang" />
+        <AssociationConnector Association="quanchiModel.FK_QC_DonHang_QC_PhuongThucThanhToan" />
+        <AssociationConnector Association="quanchiModel.FK_QC_Thuoc_DonHang_QC_DonHang" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
